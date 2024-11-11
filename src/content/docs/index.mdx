@@ -1,21 +1,17 @@
 ---
-title: A2-Ai Cloud
-description: Get started on A2-Ai Cloud with this guide. 
+title: Welcome to ghqc
+description: A new way to perfrom quality control through the use of Shiny apps and GitHub
 template: splash
-hero:
-  tagline: |
-    <div class="roller">
-      <span id="pre_text">Built for</span>
-      <span id="changing_text"> You </span>
-    </div>
+hero: 
+  tagline: A new way to perform quality control through the use of Shiny apps connected to GitHub
   image:
-    file: ../../assets/houston.webp
+    file: ../../assets/ghqc_hex.png
   actions:
-    - text: Read the Docs 
-      link: /guides/code-annotation/
+    - text: ghqc User Guide
+      link: /guides/0_intro/
       icon: right-arrow
-    - text: Go Login 
-      link: https://uat.uat.a2-ai.cloud
+    - text: Explore the ghqc repository 
+      link: https://github.com/a2-ai/ghqc
       icon: external
       variant: minimal
 ---
@@ -24,11 +20,11 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 import ScriptWorkaround from "/src/components/ScriptWorkaround.astro";
 import "/src/styles/_overrides.css";
 
-## Next steps
+## ghqc
 
 <CardGrid stagger>
-	<Card title="Understand the A2-Ai Cloud Platform" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+	<Card title="Installing ghqc" icon="pen">
+		<a href="guides/1_install">How to properly install `ghqc` and why</a>
 	</Card>
 	<Card title="Add new content" icon="add-document">
 		Add Markdown or MDX files to `src/content/docs` to create new pages.
