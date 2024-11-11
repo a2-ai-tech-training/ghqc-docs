@@ -1,0 +1,160 @@
+---
+title: Code Annotation 
+description: Various options for showing and annotating code 
+sidebar:
+  badge: 
+    text: New
+    variant: tip
+  
+---
+
+import { Code } from '@astrojs/starlight/components';
+
+
+## Code Highlighting and Focus
+
+```r
+library(ggplot2)
+ggplot(Theoph, aes(x = Time, y = conc, group = Subject)) +
+  geom_point() +
+    geom_line() 
+```
+
+
+export const exampleCode = `
+library(ggplot2)
+ggplot(Theoph, aes(x = Time, y = conc)) +
+  geom_point() +
+  geom_line() 
+`;
+export const fileName = 'plot.R';
+export const highlights = ['Time', 'conc'];
+
+<Code code={exampleCode} lang="r" title={fileName} mark={highlights} />
+
+export const exampleCode2ForDiff = `
+library(ggplot2)
+ggplot(Theoph, aes(x = Time, y = conc)) +
+ggplot(Theoph, aes(x = Time, y = conc, group = Subject)) +
+  geom_point() +
+  geom_line() 
+`;
+
+export const exampleCode2 = `
+library(ggplot2)
+ggplot(Theoph, aes(x = Time, y = conc, group = Subject)) +
+  geom_point() +
+  geom_line() 
+`;
+
+This example shows the theoretical idea of adding the group=Subject for more grouping
+
+<Code code={exampleCode2ForDiff} lang="r" title={fileName} mark={"group = Subject"} del={2} ins={3} />
+
+We can both show a line level diff and a mark for the particular text of interest
+<Code code={exampleCode2ForDiff} lang="r" title={fileName} mark={"group = Subject"} del={2} ins={3} />
+
+
+or visually highlight with a mark
+
+<Code code={exampleCode2} lang="r" title={fileName} mark={"group = Subject"} />
+
+though can actually target with the insertion itself instead of a mark
+
+<Code code={exampleCode2} lang="r" title={fileName} ins={"group = Subject"} />
+
+There are tons of options
+
+### Code with variables inside
+
+Given a file `data.json` with the following content:
+
+```json
+{
+  "domain_name": "https://a2-ai.cloud",
+}
+```
+
+This will not work, as data.domain_name will not be rendered
+
+````mdx
+import data from "./data.json";
+
+```bash
+curl {data.domain_name}
+```
+
+````
+
+Instead, you can use the `Code` component to render the code block:
+
+```mdx
+import data from "./data.json";
+
+<Code code={`curl ${data.domain_name}`} lang="bash" />
+```
+
+
+
+## Code Layout
+
+{/* Baseline
+<VersionedCode>
+<Version version={">1.0"}>
+<Code code={exampleCode} lang="r"/>
+</Version>
+<Version version={"<1.0"}>
+<Code code={exampleCode} lang="r"/>
+</Version>
+</VersionedCode> */}
+
+bash/sh/cmd/console languages will show as a terminal instead
+
+<Code code={"curl https://example.com | jq"} lang="bash"/>
+
+A title: 
+
+<Code code={exampleCode} lang="r" title={"some-script.R"}/>
+
+There a ton of ways to control how the terminal shows with conditional logic around
+the title having an extention (implying a file) vs an actual title. You can also use
+regular code blocks instead of the code component just fine.
+
+```bash title="some-script"
+curl https://example.com | jq
+```
+
+```bash title="some-script.sh"
+curl https://example.com | jq
+```
+
+Code with shebangs/titles shows up as the code editor style
+
+
+<Code code={exampleCode} lang="r" showLineNumbers />
+
+More complicated blocks where line numbers are helpful we want to use the 
+[line number plugin](https://expressive-code.com/plugins/line-numbers/)
+See the `ec.config.mjs` for a reference. Note that as of Oct 2024 typescript does
+seem to yell at `plugins: [pluginLineNumbers()],` as not assignable, but it works fine.
+
+add line numbers with `showLineNumbers`
+
+<Code code={`
+#!/bin/bash
+set -x
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+apt-get install gdebi-core
+curl -O https://download2.rstudio.org/server/jammy/amd64/rstudio-workbench-2024.09.0-amd64.deb
+gdebi rstudio-workbench-2024.09.0-amd64.deb
+`} lang="sh" title={"install-workbench.sh"} showLineNumbers/>
+
+or code itself:
+
+<Code code={exampleCode} lang="r" showLineNumbers />
+
+
+

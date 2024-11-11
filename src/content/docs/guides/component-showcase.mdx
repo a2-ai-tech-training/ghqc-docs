@@ -1,0 +1,85 @@
+---
+title: Component Showcase
+description: Some select component examples 
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+
+## [File Trees](https://starlight.astro.build/components/file-tree/)
+
+import { FileTree } from '@astrojs/starlight/components';
+
+File trees can include highlights, placeholders, and comments
+
+<FileTree>
+- data/
+  - source/ any source data we need to directly track
+  - derived/ derived data we create
+- scripts/
+  - _deps.R include baseline dependencies for renv
+- **renv.lock** highlight renv
+- ...
+</FileTree>
+
+## [Steps](https://starlight.astro.build/components/steps/)
+
+import { Steps } from '@astrojs/starlight/components';
+
+<Steps>
+
+1. restore the project to install the baseline packages:
+
+   ```r
+   renv::restore()
+   ```
+
+2. install any additional packages you want
+
+   ```r
+   install.packages("ggplot2")
+   ```
+
+</Steps>
+
+
+<Aside type="tip">
+You need both indentation and an extra space for any code/other text below the ordered list
+to keep the parser happy. Just an indent will not work.
+</Aside>
+
+## [Tabs](https://starlight.astro.build/components/tabs/)
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+
+### status
+
+<Tabs syncKey="dvs">
+  <TabItem label="R">
+    ```r
+    library(dvs)
+    dvs_status()
+    ```
+  </TabItem>
+  <TabItem label="cli">
+    ```bash
+    dvs status 
+    ```
+  </TabItem>
+</Tabs>
+
+## add
+<Tabs syncKey="dvs">
+  <TabItem label="R">
+    ```r
+    library(dvs)
+    dvs_add("data.csv")
+    ```
+  </TabItem>
+  <TabItem label="cli">
+    ```bash
+    dvs add data.csv
+    ```
+  </TabItem>
+</Tabs>
