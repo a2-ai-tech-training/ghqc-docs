@@ -18,7 +18,7 @@ export default defineConfig({
 					 // example of using explicit items
 					 items: [
 					 	// Each item here is one entry in the navigation menu.
-					 	{ label: 'Installation Guide', slug: 'guides/code-annotation' },
+					 	{ label: 'Installation Guide', slug: 'guides/1_install' },
 					 	{ label: 'Component Showcase', slug: 'guides/component-showcase' },
 					],
 					// autogenerate: { directory: 'guides' },
