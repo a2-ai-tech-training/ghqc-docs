@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
+import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
@@ -29,5 +30,9 @@ export default defineConfig({
 				},
 			],
 		}),
+		[react()]
 	],
 });
+
+
+

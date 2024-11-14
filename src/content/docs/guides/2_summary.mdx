@@ -1,0 +1,46 @@
+---
+title: Workflow Summary
+description: summary
+pagefind: true
+---
+
+import { Card, CardGrid, Aside, Code} from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import workflow_summary_light from '../../../assets/summary_workflow/workflow_summary_light.png';
+import workflow_summary_dark from '../../../assets/summary_workflow/workflow_summary_dark.png';
+
+
+<Image src={workflow_summary_light} className="dark:sl-hidden" alt="summary workflow light"/>
+<Image src={workflow_summary_dark} className="light:sl-hidden" alt="summary workflow dark"/> 
+
+<Card title="Project Files" icon="github">
+    Your GitHub repository, containing the files to be QCed.
+</Card>
+<Card title="The ghqc r package" icon="add-document">
+    The `ghqc` package is a low dependency burden package designed to be installed alongside any project packages.
+    It aids with the installation process and launches the Shiny applications as background jobs.
+</Card>
+<Card title="The ghqc.app r package" icon="add-document">
+    The `ghqc.app` package is a high dependency burden package which is the "back-end" to the Shiny applications.
+    To ensure the dependencies do not interfere with any project work, ghqc.app and its dependencies is installed into an isolated directory.
+</Card>
+<Card title="Custom Configuration" icon="information">
+    In order to provide as much control to you, the user, you are able to configure the checklists, add a note to the top of each checklist, and a logo to be included in the final record header.
+    
+    Learn more in <a href="reference/custom_config">the Custom Configuration page</a>
+</Card>
+
+## Installing ghqc
+
+`ghqc` can be installed with `pak`:
+
+```r
+#install.packages("pak")
+pak::pkg_install("a2-ai/ghqc")
+```
+
+This package was designed to have very few dependency packages, compatible with both old and new package versions, 
+in order to be installed alongside the rest of your project packages and not interfere your project.
+
+## Setup your custom configuration repository
+
