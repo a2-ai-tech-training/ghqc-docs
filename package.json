@@ -16,6 +16,7 @@
     "@expressive-code/plugin-line-numbers": "^0.37.1",
     "@fujocoded/expressive-code-caption": "^0.0.3",
     "astro": "^4.15.3",
+    "cloudinary-video-player": "^2.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sharp": "^0.32.5",

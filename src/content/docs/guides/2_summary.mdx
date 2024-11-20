@@ -5,18 +5,54 @@ pagefind: true
 ---
 
 import { Card, CardGrid, Aside, Code} from '@astrojs/starlight/components';
+import { CldVideoPlayer } from 'astro-cloudinary';
 import { Image } from 'astro:assets';
 import workflow_summary_light from '../../../assets/summary_workflow/workflow_summary_light.png';
 import workflow_summary_dark from '../../../assets/summary_workflow/workflow_summary_dark.png';
-
+import assign_diagram from '../../../assets/summary_workflow/assign_diagram.png';
+import milestone_example from '../../../assets/summary_workflow/milestone_example.png';
+import assign_example from '../../../assets/summary_workflow/assign_example.mp4';
 
 
 <Image src={workflow_summary_light} className="light:sl-hidden" alt="summary workflow light"/>
 <Image src={workflow_summary_dark} className="dark:sl-hidden" alt="summary workflow dark"/> 
 
 
-### Assign file(s) for QC
+### GitHub Issues and Milestones
+
+In the ghqc workflow:
+- An Issue is created for each project file selected for QC
+    - Each Issue is associated with a QC checklist and an assigned QCer
+- A set of Issues is organized into a Milestone
+    - A Milestone may correspond to a deliverable or a phase of work
+
+<Image src={assign_diagram} alt="assign_diagram"/>
+
+#### GitHub Example
+
+Navigate to GitHub Milestones from the Issues, then click on the "Milestones" banner.
+
+Here is an example GitHub Milestone:
+
+<Image src={milestone_example} alt="milestone_example"/>
 
 
+### Assign files for QC
 
+After the author pushes final changes to the set of files for QC review, he can use `ghqc_assign_app()` to:
+- notify the QCer that files assigned to her are ready for review
+- publish each file's QC checklist to GitHub with the correct commit and branch for the QCer to checkout
 
+<CldVideoPlayer
+  src="../../../assets/summary_workflow/assign_example.mp4"
+  width="800"
+  height="450"
+/>
+
+{/*
+<video width="800" height="450" controls>
+    <source src="../../../assets/summary_workflow/assign_example.mp4" type="video/mp4"/>
+    <source src="../../../assets/summary_workflow/assign_example.mov" type="video/mov"/>
+    Your browser does not support the video tag.
+</video>
+*/}
