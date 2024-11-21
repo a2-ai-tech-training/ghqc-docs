@@ -1,0 +1,15 @@
+---
+// src/components/TwoColumnGrid.astro
+---
+
+<div class="my-grid">
+    <slot />
+  </div>
+  
+  <style>
+  .my-grid {
+    display: grid;
+    grid-template-columns: 1fr 0.25fr;
+    gap: 1rem;
+  }
+  </style>

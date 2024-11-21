@@ -26,7 +26,7 @@ while ensuring project work is not influenced.
     Learn more in <a href="reference/custom_config">the Custom Configuration page</a>
 </Card>
 
-For more detail of how each component interacts both remotely and locally, refer to [the Infrastructure Interaction page.](reference/infrastructure-interactions)
+For more detail of how each component interacts both remotely and locally, refer to [the Infrastructure Interaction page.](../reference/infrastructure-interactions)
 
 ## Installing ghqc
 
@@ -173,7 +173,7 @@ After any successful download, the structure of the repository is verified for i
 [32m✔[0m simple_checklist.yaml
 ```
 
-#### Installing the ghqc.app dependencies
+#### Installing the ghqc Shiny app dependencies
 
 To ensure the ghqc ecosystem does not impact any of your results, the heavy dependency load of the Shiny apps are kept isolated from the rest of your packages. 
 Due to this, specific setup is recommended.
@@ -190,8 +190,8 @@ previously installed package library?
 [35mInput: 
 ```
 
-<Tabs>
-    <TabItem label = "INSTALL">
+<Tabs syncKey="isoMethod">
+    <TabItem label = "Install">
         If you are on a linux operating system, ghqc will install [the dependencies](../reference/ghqcapp-dependencies) from [PPM@2024-03-01](https://packagemanager.posit.co/cran/2024-03-01)
 
         <Aside type = "note">
@@ -240,7 +240,7 @@ previously installed package library?
             </TabItem>
         </Tabs>
     </TabItem>
-    <TabItem label = "LINK">
+    <TabItem label = "Link">
         If you have a package library previously installed, containing [all of the package versions required](../reference/ghqcapp-dependencies), [symlinking](https://servicenow.iu.edu/kb?id=kb_article_view&sysparm_article=KB0023928) will be the fastest option as it does not have to install anything.
 
         After entering `2`, you will be prompted to where to symlink the dependency packages from on your system.

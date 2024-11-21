@@ -27,6 +27,7 @@ export default defineConfig({
 					label: 'Reference',
 					items: [
 						{ label: "ghqc.app Package Dependencies", slug: 'reference/ghqcapp-dependencies' },
+						{ label: "Infrastructure Interactions", slug: 'reference/infrastructure-interactions'}
 					],
 				},
 			],
