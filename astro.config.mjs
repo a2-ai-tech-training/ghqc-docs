@@ -25,7 +25,9 @@ export default defineConfig({
 				},
 				{
 					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					items: [
+						{ label: "ghqc.app Package Dependencies", slug: 'reference/ghqcapp-dependencies' },
+					],
 				},
 			],
 		}),

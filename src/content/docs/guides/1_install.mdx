@@ -66,12 +66,12 @@ This will first start with setting the `GHQC_INFO_REPO` variable, for the custom
     <TabItem label = "First time setup">
         For initial setup, you will be prompted to enter the URL to your configuration repository in your console 
 
-        ```ansi
+        ```ansi ins="https://github.com/a2-ai/ghqc.example_info_repo"
         [36m--- [0mGHQC RENVIRON SETUP [36m-----------------------------------------------------
 
         [0mGHQC_INFO_REPO is not set in your ~/.Renviron
         [35mProvide the URL to the configuring information repository: 
-        [3;4;35mhttps://github.com/a2-ai/ghqc.example_info_repo
+        https://github.com/a2-ai/ghqc.example_info_repo
         ```
     </TabItem>
     <TabItem label = "Repeat setup">
@@ -79,12 +79,12 @@ This will first start with setting the `GHQC_INFO_REPO` variable, for the custom
 
         If you'd like to change the URL, you are able to type in your desired URL. If not, just hit `ENTER`
 
-        ```ansi
+        ```ansi "https://github.com/a2-ai/ghqc.example_info_repo"
         [36m--- [0mGHQC RENVIRON SETUP [36m-----------------------------------------------------
 
-        [0mGHQC_INFO_REPO is set to [3;4;0mhttps://github.com/a2-ai/ghqc.example_info_repo
+        [0mGHQC_INFO_REPO is set to https://github.com/a2-ai/ghqc.example_info_repo
         [0min your ~/.Renviron
-        [35mCustom Information Repository ([3;4;35mhttps://github.com/a2-ai/ghqc.example_info_repo)
+        [35mCustom Information Repository (https://github.com/a2-ai/ghqc.example_info_repo)
         ```
     </TabItem>
 </Tabs>
@@ -102,7 +102,7 @@ The package `gert` is required to download the configuring information repositor
 [38;5;226m![0m Package `gert` is not found in your project package library
   The configuration information repository cannot be downloaded 
   unless this package is present
-[35mWould you like to install `gert` to continue? (y/N)
+[35mWould you like to install `gert` to continue? (y/N) [2my 
 ```
 </Aside>
 
@@ -111,11 +111,11 @@ The default location is to install according to the [XDG Base Directory specific
 
 To install to the default directory, which is *highly* recommended, hit `ENTER`. If a different location is required, you are able to enter the file path.
 
-```ansi
+```ansi "ghqc.example_info_repo"
 [36m--- [0mCONFIGURING INFORMATION REPOSITORY [36m--------------------------------------
 
 [35mPath to download the configuration information repository 
-(~/.local/share/ghqc/[3;4;35mexample_info_repo[0;35m)
+(~/.local/share/ghqc/ghqc.example_info_repo)
 ```
 
 <Tabs syncKey="new">
@@ -123,7 +123,7 @@ To install to the default directory, which is *highly* recommended, hit `ENTER`.
         <Card title = "Not Downloaded" icon="error">
         If you have not downloaded the repository before, you will be prompted with the following. Hit `y` to download
 
-        ```ansi
+        ```ansi "ghqc.example_info_repo"
         [38;5;160mx[0m Info repository ghqc.example_info_repo is not found locally
         [35mWould you like to download the repository (y/N)? [2;35my
         ```
@@ -133,7 +133,7 @@ To install to the default directory, which is *highly* recommended, hit `ENTER`.
         <Card title = "Not Up To Date" icon="warning">
         If you the repository downloaded, but it is not up to date with remote, you will be prompted with the following. If you've made local changes you'd like to keep, you are not required to update, but your administrators may require it. Hit `y` to download the update
 
-        ```ansi
+        ```ansi "ghqc.example_info_repo"
         [38;5;160mx[0m Info repository ghqc.example_info_repo was found locally, but is 
         not the most recent version
         [35mWould you like to update the repository. This will delete all local 
@@ -145,7 +145,7 @@ To install to the default directory, which is *highly* recommended, hit `ENTER`.
         <Card title = "Up to Date" icon = "approve-check-circle">
         If the repository is downloaded and up to date, you will be provided with the following:
 
-        ```
+        ```ansi "ghqc.example_info_repo"
         Configuration Information Repository found up to date at 
         ~/.local/share/ghqc/ghqc.example_info_repo
         ```
@@ -192,7 +192,7 @@ previously installed package library?
 
 <Tabs>
     <TabItem label = "INSTALL">
-        If you are on a linux operating system, ghqc will install [the dependencies](reference/ghqc.app-dependencies) from [PPM@2024-03-01](https://packagemanager.posit.co/cran/2024-03-01)
+        If you are on a linux operating system, ghqc will install [the dependencies](../reference/ghqcapp-dependencies) from [PPM@2024-03-01](https://packagemanager.posit.co/cran/2024-03-01)
 
         <Aside type = "note">
         The packages `pak` is highly recommended for installing the dependencies. While it is not required, it does not have any dependencies that may influence project work.
@@ -200,7 +200,7 @@ previously installed package library?
         If `pak` is not installed, you will be prompted to do so to improve performance:
         ```ansi
         [35mPackage `pak` is not found in your project package library. 
-        To improve performance, would you like to install pak? (y/N) 
+        To improve performance, would you like to install pak? (y/N) [2my
         ```
         </Aside>
 
@@ -241,15 +241,15 @@ previously installed package library?
         </Tabs>
     </TabItem>
     <TabItem label = "LINK">
-        If you have a package library previously installed, containing [all of the package versions required](reference/ghqc.app-dependencies), [symlinking](https://servicenow.iu.edu/kb?id=kb_article_view&sysparm_article=KB0023928) will the fastet option as it does not have to install anything.
+        If you have a package library previously installed, containing [all of the package versions required](../reference/ghqcapp-dependencies), [symlinking](https://servicenow.iu.edu/kb?id=kb_article_view&sysparm_article=KB0023928) will be the fastest option as it does not have to install anything.
 
-        After entering `2`, you will be prompted to where to symlink [the dependency packages](reference/ghqc.app-dependencies) from on your system.
+        After entering `2`, you will be prompted to where to symlink the dependency packages from on your system.
 
         ```ansi
         [35mPath to previously installed package library from which to link:
         ```
 
-        You will then be prompted with where to symlink [the dependencies](reference/ghqc.app-dependencies) to. To set the destintation as the default directory, which is *highly* recommended, hit `ENTER`.
+        You will then be prompted with where to symlink the dependencies to. To set the destintation as the default directory, which is *highly* recommended, hit `ENTER`.
         If a different location is required, you are able to enter the file path.
 
         ```ansi
