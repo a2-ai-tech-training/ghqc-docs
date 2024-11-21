@@ -1,24 +1,28 @@
 ---
-title: Workflow Summary
+title: Workflow Overview
 description: summary
 pagefind: true
 ---
 
-import { Card, CardGrid, Aside, Code} from '@astrojs/starlight/components';
-import { CldVideoPlayer } from 'astro-cloudinary';
+import { Card, CardGrid, Aside, Code, Steps} from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
-import workflow_summary_light from '../../../assets/summary_workflow/workflow_summary_light.png';
-import workflow_summary_dark from '../../../assets/summary_workflow/workflow_summary_dark.png';
-import assign_diagram from '../../../assets/summary_workflow/assign_diagram.png';
-import milestone_example from '../../../assets/summary_workflow/milestone_example.png';
-import assign_example from '../../../assets/summary_workflow/assign_example.mp4';
+import workflow_summary_light from '/src/assets/summary_workflow/workflow_summary_light.png';
+import workflow_summary_dark from '/src/assets/summary_workflow/workflow_summary_dark.png';
+import assign_diagram from '/src/assets/summary_workflow/assign_diagram.png';
+import milestone_example from '/src/assets/summary_workflow/milestone_example.png';
+import issue_example from '/src/assets/summary_workflow/issue_example.png';
+import assign_example from '/src/assets/summary_workflow/assign_example.mp4';
+import qc_feedback1 from '/src/assets/summary_workflow/qc_feedback1.png';
+import qc_feedback2 from '/src/assets/summary_workflow/qc_feedback2.png';
+import qc_feedback3 from '/src/assets/summary_workflow/qc_feedback3.png';
+import qc_feedback4 from '/src/assets/summary_workflow/qc_feedback4.mp4';
+import qc_feedback5 from '/src/assets/summary_workflow/qc_feedback5.png';
+import resolve1mp4 from '/src/assets/summary_workflow/resolve1.mp4';
+import resolve1png from '/src/assets/summary_workflow/resolve1.png';
 
 
-<Image src={workflow_summary_light} className="light:sl-hidden" alt="summary workflow light"/>
-<Image src={workflow_summary_dark} className="dark:sl-hidden" alt="summary workflow dark"/> 
 
-
-### GitHub Issues and Milestones
+## GitHub Issues and Milestones
 
 In the ghqc workflow:
 - An Issue is created for each project file selected for QC
@@ -28,31 +32,144 @@ In the ghqc workflow:
 
 <Image src={assign_diagram} alt="assign_diagram"/>
 
-#### GitHub Example
+## Workflow Diagram 
 
-Navigate to GitHub Milestones from the Issues, then click on the "Milestones" banner.
+<Image src={workflow_summary_light} className="light:sl-hidden" alt="summary workflow light"/>
+<Image src={workflow_summary_dark} className="dark:sl-hidden" alt="summary workflow dark"/> 
+
+
+
+
+
+## Author: Assign files for QC
+
+
+export const assignAppCode = `# library(ghqc)
+ghqc_assign_app()`;
+export const console = 'console';
+
+
+<Steps>
+
+1. The Author pushes final changes to the set of files for QC review
+
+2. The Author runs the Assign shiny app to:
+    - notify the QCer that files assigned to her are ready for review
+    - publish each file's QC checklist to GitHub with the correct commit and branch for the QCer to checkout
+
+    <Code code={assignAppCode} lang="R" title={console} />
+
+
+</Steps>
+
+### Example
 
 Here is an example GitHub Milestone:
+It has 3 Issues, each named for the relative path of its corresponding file.
+
+<Aside>
+To navigate to this page in the remote project repository, click the "Issues" tab, then click on the "Milestones" banner.
+</Aside>
 
 <Image src={milestone_example} alt="milestone_example"/>
 
+Within this set of Issues, here is scripts/DA/study1_da.qmd:
 
-### Assign files for QC
+<Image src={issue_example} alt="issue_example"/>
 
-After the author pushes final changes to the set of files for QC review, he can use `ghqc_assign_app()` to:
-- notify the QCer that files assigned to her are ready for review
-- publish each file's QC checklist to GitHub with the correct commit and branch for the QCer to checkout
+### Demo 
 
-<CldVideoPlayer
-  src="../../../assets/summary_workflow/assign_example.mp4"
-  width="800"
-  height="450"
-/>
+<Code code={assignAppCode} lang="R" title={console} />
 
-{/*
-<video width="800" height="450" controls>
-    <source src="../../../assets/summary_workflow/assign_example.mp4" type="video/mp4"/>
-    <source src="../../../assets/summary_workflow/assign_example.mov" type="video/mov"/>
-    Your browser does not support the video tag.
+<video controls width = "700">
+    <source src={assign_example} type="video/mp4" />
 </video>
-*/}
+
+## QCer: Review each assigned file
+
+export const gitLogCode = `git log --oneline -1`;
+export const terminal = 'terminal';
+
+
+
+<Steps>
+
+1. The QCer clones the repository.
+
+2. The QCer runs the following git command to get the current local commit:
+
+    <Code code={gitLogCode} lang="bash" title={terminal} />
+
+    <Image src={qc_feedback2} alt="qc_feedback2"/>
+
+3. For each Issue assigned to her, the QCer ensures that her current local commit matches the `initial qc commit` from the Issue metadata section.
+
+    <Image src={qc_feedback1} alt="qc_feedback1"/>
+
+4. If the commits don't match, she can checkout the commit manually.
+
+    <Code code="git checkout 0916356" lang="bash" title={terminal} /> 
+    
+</Steps>
+
+
+## QCer: Comment QC Feedback
+
+### Example
+
+QC feedback can be given directly by commenting in an Issue thread.
+
+<Image src={qc_feedback3} alt="qc_feedback3"/>
+
+The QCer can comment on one or more lines of code by copying a permalink from the file contents page in the metadata section.
+
+<Image src={qc_feedback5} alt="qc_feedback5"/>
+
+### Demo
+<video controls width = "700">
+    <source src={qc_feedback4} type="video/mp4" />
+</video>
+
+## Author: Resolve QC findings
+
+export const resolveAppCode = `# library(ghqc)
+ghqc_resolve_app()`;
+
+<Steps>
+
+1. The Author views commented feedback from the QCer and responds if follow-up is necessary.
+
+2. The Author implements QC findings.
+
+3. The Author commits and pushes changes to the remote repository.
+
+4. The Author runs the Resolve app which creates an Issue comment intended to:
+
+    - Notify the QCer about QC file changes
+    - Inform the QCer on the current commit for QC
+    - Display a visual to the QCer with specific file changes 
+
+    <Code code={resolveAppCode} lang="R" title={console} />
+
+    
+
+</Steps>
+
+### Example
+
+<Image src={resolve1png} alt="resolve1png"/>
+
+The `current commit` in the metadata section gives the commit with the most up-to-date version of the file.
+
+The QCer can pull changes from the branch or checkout the given commit to re-review the file with the pushed changes.
+
+### Demo
+<video controls width = "700">
+    <source src={resolve1mp4} type="video/mp4" />
+</video>
+
+
+## QCer: Close Issues when QC is complete
+
+
+## Author: Generate QC Record
