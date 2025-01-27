@@ -19,7 +19,12 @@ import qc_feedback4 from '/src/assets/summary_workflow/qc_feedback4.mp4';
 import qc_feedback5 from '/src/assets/summary_workflow/qc_feedback5.png';
 import resolve1mp4 from '/src/assets/summary_workflow/resolve1.mp4';
 import resolve1png from '/src/assets/summary_workflow/resolve1.png';
-
+import issue_closed from '/src/assets/summary_workflow/issue_closed.mp4';
+import milestone_closed from '/src/assets/summary_workflow/milestone_closed.mp4';
+import record1 from '/src/assets/summary_workflow/record1.mp4';
+import record1_png from '/src/assets/summary_workflow/record1.png';
+import record2_png from '/src/assets/summary_workflow/record2.png';
+import record3_png from '/src/assets/summary_workflow/record3.png';
 
 
 ## GitHub Issues and Milestones
@@ -130,6 +135,11 @@ The QCer can comment on one or more lines of code by copying a permalink from th
     <source src={qc_feedback4} type="video/mp4" />
 </video>
 
+<Aside>
+Tip to copy multiple lines: after selecting the first line, hold shift when selecting the last line, then click the three dots to copy the permalink.
+</Aside>
+
+
 ## Author: Resolve QC findings
 
 export const resolveAppCode = `# library(ghqc)
@@ -171,5 +181,42 @@ The QCer can pull changes from the branch or checkout the given commit to re-rev
 
 ## QCer: Close Issues when QC is complete
 
+When the state of the file is to the QCer's satisfaction, each item in the Issue's checklist should be checked, and the Issue can be closed by the QCer.
+
+<video controls width = "700">
+    <source src={issue_closed} type="video/mp4" />
+</video>
+
+If the given Issue is the last open Issue in the Milestone (indicated by the full progress bar), the Milestone can be closed to mark its completion.
+
+<video controls width = "700">
+    <source src={milestone_closed} type="video/mp4" />
+</video>
+
 
 ## Author: Generate QC Record
+
+export const recordAppCode = `# library(ghqc)
+ghqc_record_app()`;
+
+<Code code={recordAppCode} lang="R" title={console} />
+
+This function allows the user to generate a QC Record for one or more Milestones created with ghqc_assign_app.
+
+The QC Record is a pdf with summary tables and Issue contents within each selected Milestone.
+
+<video controls width = "700">
+    <source src={record1} type="video/mp4" />
+</video>
+
+### Output
+
+The QC Record begins with a Milestone Summary table.
+
+Each Milestone section contains an Issue Summary table with subsections for each ghqc Issue.
+
+<Image src={record1_png} alt="record1_png"/>
+
+<Image src={record2_png} alt="record2_png"/>
+
+<Image src={record3_png} alt="record3_png"/>
