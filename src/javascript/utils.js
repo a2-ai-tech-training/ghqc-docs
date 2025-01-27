@@ -62,3 +62,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
       }
     });
   });
+
+  import cloudinary from 'cloudinary-video-player';
+  import "cloudinary-video-player/cld-video-player.min.css";
