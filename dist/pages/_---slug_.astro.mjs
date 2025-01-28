@@ -1,6 +1,6 @@
-import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent } from '../chunks/astro/server_BXqZWdP_.mjs';
+import { b as createAstro, c as createComponent, r as renderTemplate, a as renderComponent } from '../chunks/astro/server_C6X8rgM3.mjs';
 import 'kleur/colors';
-import { $ as $$Common, p as paths } from '../chunks/common_DlsKopg4.mjs';
+import { $ as $$Common, p as paths } from '../chunks/common_PqBaND0W.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Astro = createAstro("https://a2-ai-tech-training.github.io");
