@@ -1,12 +1,13 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
+// import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://a2-ai.github.io/ghqc/',
+	site: 'https://a2-ai-tech-training.github.io',
+	base: '/ghqc-docs',
 	integrations: [
 		starlight({
 			title: 'ghqc',
