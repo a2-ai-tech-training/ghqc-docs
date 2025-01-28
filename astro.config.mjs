@@ -15,20 +15,20 @@ export default defineConfig({
 				github: 'https://github.com/a2-ai/ghqc',
 			},
 			sidebar: [
-				{
-					label: 'Guides',
+				//{
+				//	label: 'Guides',
 					 // example of using explicit items
-					 items: [
+				//	 items: [
 					 	// Each item here is one entry in the navigation menu.
-					 	{ label: 'Installation Guide', slug: 'guides/code-annotation' },
-					 	{ label: 'Component Showcase', slug: 'guides/component-showcase' },
-					],
+				//	 	{ label: 'Installation Guide', slug: 'guides/code-annotation' },
+				//	 	{ label: 'Component Showcase', slug: 'guides/component-showcase' },
+				//	],
 					// autogenerate: { directory: 'guides' },
-				},
-				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
-				},
+				//},
+				//{
+				//	label: 'Reference',
+				//	autogenerate: { directory: 'reference' },
+				//},
 			],
 		}),
 		[react()]
