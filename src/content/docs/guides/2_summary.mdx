@@ -4,27 +4,8 @@ description: summary
 pagefind: true
 ---
 
-import { Card, CardGrid, Aside, Code, Steps} from '@astrojs/starlight/components';
+import { Card, CardGrid, Aside, Code, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
-import workflow_summary_light from '/src/assets/summary_workflow/workflow_summary_light.png';
-import workflow_summary_dark from '/src/assets/summary_workflow/workflow_summary_dark.png';
-import assign_diagram from '/src/assets/summary_workflow/assign_diagram.png';
-import milestone_example from '/src/assets/summary_workflow/milestone_example.png';
-import issue_example from '/src/assets/summary_workflow/issue_example.png';
-import assign_example from '/src/assets/summary_workflow/assign_example.mp4';
-import qc_feedback1 from '/src/assets/summary_workflow/qc_feedback1.png';
-import qc_feedback2 from '/src/assets/summary_workflow/qc_feedback2.png';
-import qc_feedback3 from '/src/assets/summary_workflow/qc_feedback3.png';
-import qc_feedback4 from '/src/assets/summary_workflow/qc_feedback4.mp4';
-import qc_feedback5 from '/src/assets/summary_workflow/qc_feedback5.png';
-import resolve1mp4 from '/src/assets/summary_workflow/resolve1.mp4';
-import resolve1png from '/src/assets/summary_workflow/resolve1.png';
-import issue_closed from '/src/assets/summary_workflow/issue_closed.mp4';
-import milestone_closed from '/src/assets/summary_workflow/milestone_closed.mp4';
-import record1 from '/src/assets/summary_workflow/record1.mp4';
-import record1_png from '/src/assets/summary_workflow/record1.png';
-import record2_png from '/src/assets/summary_workflow/record2.png';
-import record3_png from '/src/assets/summary_workflow/record3.png';
 
 
 ## GitHub Issues and Milestones
@@ -35,19 +16,30 @@ In the ghqc workflow:
 - A set of Issues is organized into a Milestone
     - A Milestone may correspond to a deliverable or a phase of work
 
-<Image src={assign_diagram} alt="assign_diagram"/>
+
+![assign_diagram](/ghqc-docs/assign_diagram.png)
 
 ## Workflow Diagram 
 
-<Image src={workflow_summary_light} className="light:sl-hidden" alt="summary workflow light"/>
-<Image src={workflow_summary_dark} className="dark:sl-hidden" alt="summary workflow dark"/> 
 
+<Image 
+    src="/ghqc-docs/workflow_summary_light.png" 
+    className="light:sl-hidden" 
+    alt="summary workflow light"
+    width={800}
+    height={600}
+/>
 
-
+<Image 
+    src="/ghqc-docs/workflow_summary_dark.png" 
+    className="dark:sl-hidden" 
+    alt="summary workflow dark"
+    width={800}
+    height={600}
+/>
 
 
 ## Author: Assign files for QC
-
 
 export const assignAppCode = `# library(ghqc)
 ghqc_assign_app()`;
@@ -76,26 +68,24 @@ It has 3 Issues, each named for the relative path of its corresponding file.
 To navigate to this page in the remote project repository, click the "Issues" tab, then click on the "Milestones" banner.
 </Aside>
 
-<Image src={milestone_example} alt="milestone_example"/>
+![milestone_example](/ghqc-docs/milestone_example.png)
 
 Within this set of Issues, here is scripts/DA/study1_da.qmd:
 
-<Image src={issue_example} alt="issue_example"/>
+![issue_example](/ghqc-docs/issue_example.png)
 
 ### Demo 
 
 <Code code={assignAppCode} lang="R" title={console} />
 
 <video controls width = "700">
-    <source src={assign_example} type="video/mp4" />
+    <source src="/ghqc-docs/assign_example.mp4" type="video/mp4" />
 </video>
 
 ## QCer: Review each assigned file
 
 export const gitLogCode = `git log --oneline -1`;
 export const terminal = 'terminal';
-
-
 
 <Steps>
 
@@ -105,11 +95,11 @@ export const terminal = 'terminal';
 
     <Code code={gitLogCode} lang="bash" title={terminal} />
 
-    <Image src={qc_feedback2} alt="qc_feedback2"/>
+    ![qc_feedback2](/ghqc-docs/qc_feedback2.png)
 
 3. For each Issue assigned to her, the QCer ensures that her current local commit matches the `initial qc commit` from the Issue metadata section.
 
-    <Image src={qc_feedback1} alt="qc_feedback1"/>
+    ![qc_feedback1](/ghqc-docs/qc_feedback1.png)
 
 4. If the commits don't match, she can checkout the commit manually.
 
@@ -124,15 +114,15 @@ export const terminal = 'terminal';
 
 QC feedback can be given directly by commenting in an Issue thread.
 
-<Image src={qc_feedback3} alt="qc_feedback3"/>
+![qc_feedback3](/ghqc-docs/qc_feedback3.png)
 
 The QCer can comment on one or more lines of code by copying a permalink from the file contents page in the metadata section.
 
-<Image src={qc_feedback5} alt="qc_feedback5"/>
+![qc_feedback5](/ghqc-docs/qc_feedback5.png)
 
 ### Demo
 <video controls width = "700">
-    <source src={qc_feedback4} type="video/mp4" />
+    <source src="/ghqc-docs/qc_feedback4.mp4" type="video/mp4" />
 </video>
 
 <Aside>
@@ -167,7 +157,7 @@ ghqc_resolve_app()`;
 
 ### Example
 
-<Image src={resolve1png} alt="resolve1png"/>
+![resolve1](/ghqc-docs/resolve1.png)
 
 The `current commit` in the metadata section gives the commit with the most up-to-date version of the file.
 
@@ -175,7 +165,7 @@ The QCer can pull changes from the branch or checkout the given commit to re-rev
 
 ### Demo
 <video controls width = "700">
-    <source src={resolve1mp4} type="video/mp4" />
+    <source src="/ghqc-docs/resolve1.mp4" type="video/mp4" />
 </video>
 
 
@@ -184,13 +174,13 @@ The QCer can pull changes from the branch or checkout the given commit to re-rev
 When the state of the file is to the QCer's satisfaction, each item in the Issue's checklist should be checked, and the Issue can be closed by the QCer.
 
 <video controls width = "700">
-    <source src={issue_closed} type="video/mp4" />
+    <source src="/ghqc-docs/issue_closed.mp4" type="video/mp4" />
 </video>
 
 If the given Issue is the last open Issue in the Milestone (indicated by the full progress bar), the Milestone can be closed to mark its completion.
 
 <video controls width = "700">
-    <source src={milestone_closed} type="video/mp4" />
+    <source src="/ghqc-docs/milestone_closed.mp4" type="video/mp4" />
 </video>
 
 
@@ -206,7 +196,7 @@ This function allows the user to generate a QC Record for one or more Milestones
 The QC Record is a pdf with summary tables and Issue contents within each selected Milestone.
 
 <video controls width = "700">
-    <source src={record1} type="video/mp4" />
+    <source src="/ghqc-docs/record1.mp4" type="video/mp4" />
 </video>
 
 ### Output
@@ -215,8 +205,8 @@ The QC Record begins with a Milestone Summary table.
 
 Each Milestone section contains an Issue Summary table with subsections for each ghqc Issue.
 
-<Image src={record1_png} alt="record1_png"/>
+![record1](/ghqc-docs/record1.png)
 
-<Image src={record2_png} alt="record2_png"/>
+![record2](/ghqc-docs/record2.png)
 
-<Image src={record3_png} alt="record3_png"/>
+![record3](/ghqc-docs/record3.png)
