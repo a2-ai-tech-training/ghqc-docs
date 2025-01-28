@@ -158,6 +158,13 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".mdx"] };
+"guides/2_summary.mdx": {
+	id: "guides/2_summary.mdx";
+  slug: "guides/2_summary";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".mdx"] };
 "guides/code-annotation.mdx": {
 	id: "guides/code-annotation.mdx";
   slug: "guides/code-annotation";
