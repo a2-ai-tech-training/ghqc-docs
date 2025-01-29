@@ -43,7 +43,7 @@ jobs:
 
       # Ensure correct permissions for upload folder
       - name: Set permissions for dist/
-        run: chmod -R 755 dist && ls -lah dist/
+        run: chmod -R a+rX dist
 
       # Debugging: List all files in dist
       - name: Debug - List all files in dist/
