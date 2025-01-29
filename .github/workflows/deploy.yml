@@ -2,7 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:
@@ -14,7 +15,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -23,18 +24,22 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install dependencies with legacy peer deps
+      - name: Clean previous build (keep dist directory)
+        run: find dist -mindepth 1 -delete || true
+
+      - name: Install dependencies
         run: npm install --legacy-peer-deps
-      
-      # Alternative: Use --force if legacy-peer-deps doesn't work
-      # - name: Install dependencies (force)
-      #   run: npm install --force
 
       - name: Build Astro site
         run: npm run build
 
+      - name: Debug - List build output
+        run: ls -l dist
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
+        with:
+          path: dist  # Ensure correct directory
 
   deploy:
     needs: build
