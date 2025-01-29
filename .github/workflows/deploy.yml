@@ -41,6 +41,10 @@ jobs:
       - name: Debug - Check dist/ directory size
         run: du -sh dist/ || echo "dist/ does not exist"
 
+      # Ensure correct permissions for upload folder
+      - name: Set permissions for dist/
+        run: chmod -R 755 dist && ls -lah dist/
+
       # Debugging: List all files in dist
       - name: Debug - List all files in dist/
         run: ls -lah dist/ || echo "dist/ directory is empty"
