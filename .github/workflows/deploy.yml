@@ -37,11 +37,17 @@ jobs:
       - name: Debug - Check dist/ directory size
         run: du -sh dist/ || echo "dist/ does not exist"
 
-      - name: Debug - Check for symlinks
-        run: find dist -type l || echo "No symlinks found"
-
       - name: Remove symlinks
         run: find dist -type l -delete || true
+
+      - name: Debug - List all symlinks
+        run: find dist -type l -exec ls -lah {} + || echo "No symlinks found"
+    
+      - name: Debug - List all hard links
+        run: find dist -type f -links +1 -exec ls -lah {} + || echo "No hard links found"
+    
+      - name: Debug - Remove hard links
+        run: find dist -type f -links +1 -exec cp --remove-destination {} {}.tmp \; -exec mv {}.tmp {} \;
 
       - name: Debug - List all files in dist/
         run: ls -lah dist/
