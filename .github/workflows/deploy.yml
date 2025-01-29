@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master
+      - master  # Ensure this matches your repo's default branch
   workflow_dispatch:
 
 permissions:
@@ -33,14 +33,33 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
-      - name: Debug - List build output
-        run: ls -l dist
+      # Debugging: Ensure dist/ exists and check its size
+      - name: Debug - Check dist/ directory size
+        run: du -sh dist/ || echo "dist/ does not exist"
 
+      - name: Debug - Check for symlinks
+        run: find dist -type l || echo "No symlinks found"
+
+      - name: Remove symlinks
+        run: find dist -type l -delete || true
+
+      - name: Debug - List all files in dist/
+        run: ls -lah dist/
+
+      # Install ImageMagick for image optimization
+      - name: Install ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+      # Optimize images (Reduce PNG & JPG sizes by 50%)
+      - name: Optimize images
+        run: find dist -type f \( -iname "*.png" -o -iname "*.jpg" \) -exec mogrify -resize 50% {} +
+
+      # Upload artifact for deployment
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: github-pages  
-          path: dist 
+          name: github-pages  # Ensure artifact is named correctly
+          path: dist  # Ensure Astro builds output here
 
   deploy:
     needs: build
@@ -49,6 +68,12 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages  # Match the uploaded artifact name
+          path: dist  # Ensure it extracts to the correct location
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
