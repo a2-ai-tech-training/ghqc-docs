@@ -24,6 +24,10 @@ jobs:
           node-version: 20
           cache: npm
 
+      # Ensure dist/ directory exists before modifying it
+      - name: Ensure dist/ exists
+        run: mkdir -p dist
+
       - name: Clean previous build (keep dist directory)
         run: find dist -mindepth 1 -delete || true
 
@@ -37,20 +41,25 @@ jobs:
       - name: Debug - Check dist/ directory size
         run: du -sh dist/ || echo "dist/ does not exist"
 
+      # Debugging: List all files in dist
+      - name: Debug - List all files in dist/
+        run: ls -lah dist/ || echo "dist/ directory is empty"
+
+      # Debugging: List all symlinks
+      - name: Debug - List all symlinks
+        run: find dist -type l -exec ls -lah {} + || echo "No symlinks found"
+
+      # Remove symlinks
       - name: Remove symlinks
         run: find dist -type l -delete || true
 
-      - name: Debug - List all symlinks
-        run: find dist -type l -exec ls -lah {} + || echo "No symlinks found"
-    
+      # Debugging: List all hard links
       - name: Debug - List all hard links
         run: find dist -type f -links +1 -exec ls -lah {} + || echo "No hard links found"
-    
-      - name: Debug - Remove hard links
-        run: find dist -type f -links +1 -exec cp --remove-destination {} {}.tmp \; -exec mv {}.tmp {} \;
 
-      - name: Debug - List all files in dist/
-        run: ls -lah dist/
+      # Remove hard links
+      - name: Remove hard links
+        run: find dist -type f -links +1 -exec cp --remove-destination {} {}.tmp \; -exec mv {}.tmp {} \;
 
       # Install ImageMagick for image optimization
       - name: Install ImageMagick
@@ -60,29 +69,16 @@ jobs:
       - name: Optimize images
         run: find dist -type f \( -iname "*.png" -o -iname "*.jpg" \) -exec mogrify -resize 50% {} +
 
+      # Final debug check before deployment
+      - name: Debug - Final dist/ contents
+        run: ls -lah dist/
+
       # Upload artifact for deployment
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: github-pages  # Ensure artifact is named correctly
           path: dist  # Ensure Astro builds output here
-
-  # deploy:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
-  #   steps:
-  #     - name: Download artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: github-pages  # Match the uploaded artifact name
-  #         path: dist  # Ensure it extracts to the correct location
-
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v4
 
   deploy:
     needs: build
@@ -91,6 +87,15 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages  # Match the uploaded artifact name
+          path: dist  # Ensure it extracts to the correct location
+
+      - name: Debug - Verify artifact before deployment
+        run: ls -lah dist/ || echo "dist/ is missing!"
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
