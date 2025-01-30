@@ -1,11 +1,14 @@
 name: Deploy to GitHub Pages
 
 on:
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
   push:
-    branches:
-      - master  # Ensure this matches your repo's default branch
+    branches: [ master ]
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
+# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
   pages: write
@@ -15,74 +18,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout your repository using git
         uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      # Ensure dist/ directory exists before modifying it
-      - name: Ensure dist/ exists
-        run: mkdir -p dist
-
-      - name: Clean previous build (keep dist directory)
-        run: find dist -mindepth 1 -delete || true
-
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-
-      - name: Build Astro site
-        run: npm run build
-
-      # Debugging: Ensure dist/ exists and check its size
-      - name: Debug - Check dist/ directory size
-        run: du -sh dist/ || echo "dist/ does not exist"
-
-      # Ensure correct permissions for upload folder
-      - name: Set permissions for dist/
-        run: chmod -R a+rX dist
-
-      # Debugging: List all files in dist
-      - name: Debug - List all files in dist/
-        run: ls -lah dist/ || echo "dist/ directory is empty"
-
-      # Debugging: List all symlinks
-      - name: Debug - List all symlinks
-        run: find dist -type l -exec ls -lah {} + || echo "No symlinks found"
-
-      # Remove symlinks
-      - name: Remove symlinks
-        run: find dist -type l -delete || true
-
-      # Debugging: List all hard links
-      - name: Debug - List all hard links
-        run: find dist -type f -links +1 -exec ls -lah {} + || echo "No hard links found"
-
-      # Remove hard links
-      - name: Remove hard links
-        run: find dist -type f -links +1 -exec cp --remove-destination {} {}.tmp \; -exec mv {}.tmp {} \;
-
-      # Install ImageMagick for image optimization
-      - name: Install ImageMagick
-        run: sudo apt-get update && sudo apt-get install -y imagemagick
-
-      # Optimize images (Reduce PNG & JPG sizes by 50%)
-      - name: Optimize images
-        run: find dist -type f \( -iname "*.png" -o -iname "*.jpg" \) -exec mogrify -resize 50% {} +
-
-      # Final debug check before deployment
-      - name: Debug - Final dist/ contents
-        run: ls -lah dist/
-
-      # Upload artifact for deployment
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: github-pages  # Ensure artifact is named correctly
-          path: dist  # Ensure Astro builds output here
+      - name: Install, build, and upload your site
+        uses: withastro/action@v3
+        # with:
+          # path: . # The root location of your Astro project inside the repository. (optional)
+          # node-version: 20 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
+          # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
 
   deploy:
     needs: build
@@ -91,15 +34,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages  # Match the uploaded artifact name
-          path: dist  # Ensure it extracts to the correct location
-
-      - name: Debug - Verify artifact before deployment
-        run: ls -lah dist/ || echo "dist/ is missing!"
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
