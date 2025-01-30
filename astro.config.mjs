@@ -6,6 +6,7 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
+	output: "static",
 	site: 'https://a2-ai-tech-training.github.io',
 	base: '/ghqc-docs/',
 	integrations: [
