@@ -1,0 +1,290 @@
+---
+title: ghqc Ecosystem Installation and Setup
+description: A guide on how to install `ghqc` with some explanation as to the motivation
+pagefind: true
+---
+import { Tabs, TabItem, Card, CardGrid, Aside, Code, Badge } from '@astrojs/starlight/components';
+
+The ghqc ecosystem is split into 4 components to give the user control over the QC process
+while ensuring additional project package dependencies are minimal.
+
+<Card title="The QCed project" icon="github">
+    Your GitHub repository, containing the files to be QCed.
+</Card>
+<Card title="ghqc" icon="add-document" color = "red">
+    `ghqc` is a low dependency burden package designed to be installed alongside any project packages.
+    It aids with the installation process and launches the Shiny applications as background jobs.
+</Card>
+<Card title="ghqc.app" icon="add-document">
+    `ghqc.app` is a high dependency burden package "back-end" to the Shiny applications.
+    To ensure the dependencies do not interfere with any project work, ghqc.app and its dependencies is installed into an isolated directory outside of the QCed project.
+</Card>
+<Card title="Custom configuration repository " icon="information">
+    Custom options for app inputs and outputs are configured by an organization administrator in a custom configuration repository.\
+    This repository includes the selectable checklists for QCed files.
+    
+    Learn more at <a href="/ghqc-docs/reference/custom_config">the Custom Configuration page</a>
+</Card>
+
+## Install ghqc
+
+`ghqc` can be installed with `pak`:
+
+```r
+#install.packages("pak")
+pak::pkg_install("a2-ai/ghqc")
+```
+
+## Custom Configuration
+
+Currently, ghqc allows you to configure your use experience by using custom checklists, including a note to prepend before each checklist, and a logo to render within the final record.
+To accomplish this, ghqc must be provided with a remote repository in which to access this information from. 
+
+As an organization administrators, please refer to <a href="reference/custom_config">the Custom Configuration page</a> for instructions regarding valid checklist formats and how to set-up your organizations remote repository.
+
+For users, all you'll need is the URL and the package will handle the rest
+
+## Background Setup
+
+With `ghqc` is a functions `ghqc::setup_ghqc()`, which will interactively walk you through the setup process. 
+
+To get started, run the command:
+
+```r
+ghqc::ghqc_setup()
+```
+
+#### Renviron Setup
+This will first start with setting the `GHQC_INFO_REPO` variable, for the custom configuration repository, in your ~/.Renviron file. 
+
+<Tabs syncKey="new">
+    <TabItem label = "First time setup">
+        For initial setup, you will be prompted to enter the URL to your configuration repository in your console 
+
+        ```ansi ins="https://github.com/a2-ai/ghqc.example_info_repo"
+        [36m--- [0mGHQC RENVIRON SETUP [36m-----------------------------------------------------
+
+        [0mGHQC_INFO_REPO is not set in your ~/.Renviron
+        [35mProvide the URL to the configuring information repository: 
+        https://github.com/a2-ai/ghqc.example_info_repo
+        ```
+    </TabItem>
+    <TabItem label = "Repeat setup">
+        If you have setup ghqc before, you will be prompted with the following in your console
+
+        If you'd like to change the URL, you are able to type in your desired URL. If not, just hit `ENTER`
+
+        ```ansi "https://github.com/a2-ai/ghqc.example_info_repo"
+        [36m--- [0mGHQC RENVIRON SETUP [36m-----------------------------------------------------
+
+        [0mGHQC_INFO_REPO is set to https://github.com/a2-ai/ghqc.example_info_repo
+        [0min your ~/.Renviron
+        [35mCustom Information Repository (https://github.com/a2-ai/ghqc.example_info_repo)
+        ```
+    </TabItem>
+</Tabs>
+
+<Aside type="note">
+*ht<span>tps://</span>github.com/a2-ai/ghqc.example_info_repo* is an example repository and should be replaced by your organizations URL set above in the [Custom Configuration section.](#custom-configuration)
+</Aside>
+
+#### Downloading the repository
+
+<Aside type = "caution">
+The package `gert` is required to download the configuring information repository. If it is not install, you will be prompted to do so:
+
+```ansi
+[38;5;226m![0m Package `gert` is not found in your project package library
+  The configuration information repository cannot be downloaded 
+  unless this package is present
+[35mWould you like to install `gert` to continue? (y/N) [2my 
+```
+</Aside>
+
+After `GHQC_INFO_REPO` is set, you will be prompted with where to download it to. 
+The default location is to install according to the [XDG Base Directory specification](https://specifications.freedesktop.org/basedir-spec/latest/), with a subfolder based on the repository name
+
+To install to the default directory, which is *highly* recommended, hit `ENTER`. If a different location is required, you are able to enter the file path.
+
+```ansi "ghqc.example_info_repo"
+[36m--- [0mCONFIGURING INFORMATION REPOSITORY [36m--------------------------------------
+
+[35mPath to download the configuration information repository 
+(~/.local/share/ghqc/ghqc.example_info_repo)
+```
+
+<Tabs syncKey="new">
+    <TabItem label = "First time setup">
+        <Card title = "Not Downloaded" icon="error">
+        If you have not downloaded the repository before, you will be prompted with the following. Hit `y` to download
+
+        ```ansi "ghqc.example_info_repo"
+        [38;5;160mx[0m Info repository ghqc.example_info_repo is not found locally
+        [35mWould you like to download the repository (y/N)? [2;35my
+        ```
+        </Card>
+    </TabItem>
+    <TabItem label = "Updates needed">
+        <Card title = "Not Up To Date" icon="warning">
+        If you the repository downloaded, but it is not up to date with remote, you will be prompted with the following. If you've made local changes you'd like to keep, you are not required to update, but your administrators may require it. Hit `y` to download the update
+
+        ```ansi "ghqc.example_info_repo"
+        [38;5;160mx[0m Info repository ghqc.example_info_repo was found locally, but is 
+        not the most recent version
+        [35mWould you like to update the repository. This will delete all local 
+        changes to ghqc.example_info_repo (y/N)? [2;35my
+        ```
+        </Card>
+    </TabItem>
+    <TabItem label = "Repeat setup">
+        <Card title = "Up to Date" icon = "approve-check-circle">
+        If the repository is downloaded and up to date, you will be provided with the following:
+
+        ```ansi "ghqc.example_info_repo"
+        Configuration Information Repository found up to date at 
+        ~/.local/share/ghqc/ghqc.example_info_repo
+        ```
+        </Card>
+    </TabItem>
+</Tabs>
+
+After any successful download, the structure of the repository is verified for its compatiblility with the ghqc ecosystem.
+
+```ansi
+[32m✔[0m logo.png successfully found
+
+[32m✔[0m 'note' successfully found
+
+    [3;0m“Checklist items should be editted by the author on GitHub after
+    checklist generation by the app to include specific details about each
+    selected qc file.The author should also add or subtract generated checklist
+    items on a case-per-case basis.”
+    — [0m
+    
+[32m✔[0m Checklists directory successfully found
+
+-- Checklist directory content
+[32m✔[0m advanced_checklist.yaml
+[32m✔[0m simple_checklist.yaml
+```
+
+#### Installing the ghqc Shiny app dependencies
+
+To ensure the ghqc ecosystem does not impact any of your results, the heavy dependency load of the Shiny apps are kept isolated from the rest of your packages. 
+Due to this, specific setup is recommended.
+
+You will first be prompted to choose between "installing" or "linking" the dependencies packages.
+
+```ansi
+[36m--- [0mGHQC.APP DEPENDENCY INSTALLATION [36m----------------------------------------
+[0mWould you like to INSTALL new packages form Posit Package Manager or LINK to a 
+previously installed package library?
+1. INSTALL
+2. LINK
+3. Neither
+[35mInput: 
+```
+
+<Tabs syncKey="isoMethod">
+    <TabItem label = "Install">
+        If you are on a linux operating system, ghqc will install [the dependencies](../reference/ghqcapp-dependencies) from [PPM@2024-03-01](https://packagemanager.posit.co/cran/2024-03-01)
+
+        <Aside type = "note">
+        The packages `pak` is highly recommended for installing the dependencies. While it is not required, it does not have any dependencies that may influence project work.
+
+        If `pak` is not installed, you will be prompted to do so to improve performance:
+        ```ansi
+        [35mPackage `pak` is not found in your project package library. 
+        To improve performance, would you like to install pak? (y/N) [2my
+        ```
+        </Aside>
+
+        After entering `1`, you will be prompted with where to install the dependencies. To install to the default directory, which is *highly* recommended, hit `ENTER`.
+        If a different location is required, you are able to enter the file path.
+
+        ```ansi
+        [35mPath to install the ghqc.app dependencies (~/.local/share/ghqc/rpkgs)
+        ```
+
+        `ghqc` will then check the content of the directory to ensure the correct packages and versions are installed.
+        <Tabs syncKey="new">
+            <TabItem label = "First time setup">
+                If no packages are found, you will be prompted the following:
+                ```ansi
+                [38;5;160mx[0m No packages found in ~/.local/share/ghqc/rpkgs
+                [35mWould you like to install the ghqc.app dependencies (y/N)? [2my
+                ```
+            </TabItem>
+            <TabItem label = "Updates needed">
+                If some packages are not found, or require updates, you will be prompted the following:
+                ```ansi
+                [38;5;160mx[0m Some dependency packages in ~/.local/share/ghqc/rpkgs may not be
+                found or require updates
+                Package     Installed_Version   Recommended_Version
+                waldo       NA                  0.5.2
+                withr       2.5.2               3.0.0
+                [35mWould you like to install or update the above packages (y/N)? [2my
+                ```
+            </TabItem>
+            <TabItem label = "Repeat setup">
+                If all packages are installed, you will be provided with the following:
+
+                ```ansi
+                [32m✔[0m All dependency packages in ~/.local/share/ghqc/rpkgs are up to date
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem label = "Link">
+        If you have a package library previously installed, containing [all of the package versions required](../reference/ghqcapp-dependencies), [symlinking](https://servicenow.iu.edu/kb?id=kb_article_view&sysparm_article=KB0023928) will be the fastest option as it does not have to install anything.
+
+        After entering `2`, you will be prompted to where to symlink the dependency packages from on your system.
+
+        ```ansi
+        [35mPath to previously installed package library from which to link:
+        ```
+
+        You will then be prompted with where to symlink the dependencies to. To set the destintation as the default directory, which is *highly* recommended, hit `ENTER`.
+        If a different location is required, you are able to enter the file path.
+
+        ```ansi
+        [35mPath to link the ghqc.app dependencies (~/.local/share/ghqc/rpkgs)
+        ```
+
+        In order to prevent errors, the current content in the destintation is deleted and then the symlink occurs:
+        ```ansi
+        Linking ghqc.app dependency packages...
+        Removing all packages in ~/.local/share/ghqc/rpkgs...
+        [32m✔[0m All packages in ~/.local/share/ghqc/rpkgs were successfully removed
+        [32m✔[0m All 148 ghqc.app dependency packages were linked to 
+        `~/.local/share/ghqc/rpkgs` in 0.53 secs
+        ```
+    </TabItem>
+    <TabItem label = "Neither">
+        If neither option will work for you, or you just do not want to setup the dependency packages in the moment, select `3`.
+
+        A helper function [`ghqc::ghqc_libpath()`](https://a2-ai.github.io/ghqc/reference/ghqc_libpath.html) exists to create, if needed, and output the string to the default dependency directory.
+    </TabItem>
+</Tabs>
+
+## Installing ghqc.app
+
+At the end of the ghqc.app dependency installation, you may notice the following note:
+
+```ansi
+[38;5;226m![0m NOTE: ghqc.app is not installed in ~/.local/share/ghqc/rpkgs. 
+  Please install before running any ghqc apps
+```
+
+Due to organizational requirements for package management and installation, the package orchestrating the Shiny apps is not installed as part of `ghqc::setup_ghqc()`. Either of the following commands will install the package:
+
+```ansi
+[2m# install.packages("pak")
+[0mpak::pak([38;5;106m"a2-ai/ghqc.app"[0m, lib = [3;4mghqc::ghqc_libpath()[0m)
+
+OR
+
+utils::install.packages([38;5;106m"ghqc.app"[0m, 
+                        lib = [3;4mghqc::ghqc_libpath()[0m,
+                        repos = [38;5;106m"https://a2-ai.r-universe.dev"[0m)
+```
