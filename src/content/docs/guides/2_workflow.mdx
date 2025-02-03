@@ -26,7 +26,7 @@ In the ghqc workflow:
 
 ## Author: Assign files for QC
 
-export const assignAppCode = `# library(ghqc)
+export const assignAppCode = `library(ghqc)
 ghqc_assign_app()`;
 export const console = 'console';
 
@@ -39,7 +39,7 @@ export const console = 'console';
     - notify the QCer that files assigned to her are ready for review
     - publish each file's QC checklist to GitHub with the correct commit and branch for the QCer to checkout
 
-    <Code code={assignAppCode} lang="R" title={console} />
+    <Code code={assignAppCode} lang="r" title={console} />
 
 
 </Steps>
@@ -49,11 +49,11 @@ export const console = 'console';
 Here is an example GitHub Milestone:
 It has 3 Issues, each named for the relative path of its corresponding file.
 
+![milestone_example](/ghqc-docs/milestone_example.png)
+
 <Aside>
 To navigate to this page in the remote project repository, click the "Issues" tab, then click on the "Milestones" banner.
 </Aside>
-
-![milestone_example](/ghqc-docs/milestone_example.png)
 
 Within this set of Issues, here is scripts/DA/study1_da.qmd:
 
@@ -61,7 +61,7 @@ Within this set of Issues, here is scripts/DA/study1_da.qmd:
 
 ### Demo 
 
-<Code code={assignAppCode} lang="R" title={console} />
+<Code code={assignAppCode} lang="r" title={console} />
 
 <video controls width = "700">
     <source src="/ghqc-docs/assign_example.mp4" type="video/mp4" />
@@ -117,7 +117,7 @@ Tip to copy multiple lines: after selecting the first line, hold shift when sele
 
 ## Author: Resolve QC findings
 
-export const resolveAppCode = `# library(ghqc)
+export const resolveAppCode = `library(ghqc)
 ghqc_resolve_app()`;
 
 <Steps>
@@ -134,7 +134,7 @@ ghqc_resolve_app()`;
     - Inform the QCer on the current commit for QC
     - Display a visual to the QCer with specific file changes 
 
-    <Code code={resolveAppCode} lang="R" title={console} />
+    <Code code={resolveAppCode} lang="r" title={console} />
 
     
 
@@ -149,6 +149,9 @@ The `current commit` in the metadata section gives the commit with the most up-t
 The QCer can pull changes from the branch or checkout the given commit to re-review the file with the pushed changes.
 
 ### Demo
+
+<Code code={resolveAppCode} lang="r" title={console} />
+
 <video controls width = "700">
     <source src="/ghqc-docs/resolve1.mp4" type="video/mp4" />
 </video>
@@ -171,10 +174,10 @@ If the given Issue is the last open Issue in the Milestone (indicated by the ful
 
 ## Author: Generate QC Record
 
-export const recordAppCode = `# library(ghqc)
+export const recordAppCode = `library(ghqc)
 ghqc_record_app()`;
 
-<Code code={recordAppCode} lang="R" title={console} />
+<Code code={recordAppCode} lang="r" title={console} />
 
 This function allows the user to generate a QC Record for one or more Milestones created with ghqc_assign_app.
 
@@ -193,6 +196,8 @@ Each Milestone section contains an Issue Summary table with subsections for each
 ![record3](/ghqc-docs/record3.png)
 
 ### Demo
+
+<Code code={recordAppCode} lang="r" title={console} />
 
 <video controls width = "700">
     <source src="/ghqc-docs/record1.mp4" type="video/mp4" />
