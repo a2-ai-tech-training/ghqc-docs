@@ -12,16 +12,16 @@ export default defineConfig({
 			social: {
 				github: 'https://github.com/A2-ai/ghqc',
 			},
-			// sidebar: [
-			// 	{
-			// 		label: 'Guides',
-			// 		autogenerate: { directory: 'guides' },
-			// 	},
-			// 	{
-			// 		label: 'Reference',
-			// 		autogenerate: { directory: 'reference' },
-			// 	},
-			// ],
+			sidebar: [
+				{
+					label: 'Guides',
+					autogenerate: { directory: 'guides' },
+				}//,
+				// {
+				// 	label: 'Reference',
+				// 	autogenerate: { directory: 'reference' },
+				// },
+			],
 		}),
 	],
 });
