@@ -1,0 +1,253 @@
+---
+title: Workflow Overview
+description: summary
+pagefind: true
+---
+
+import { Card, CardGrid, Aside, Code, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+
+## GitHub Issues and Milestones
+
+In the ghqc workflow:
+- An Issue is created for each project file selected for QC
+    - Each Issue is associated with a QC checklist and an assigned QCer
+- A set of Issues is organized into a Milestone
+    - A Milestone may correspond to a deliverable or a phase of work
+
+
+![assign_diagram](/ghqc-docs/assign_diagram.png)
+
+## Suggested Workflow 
+
+![workflow_summary](/ghqc-docs/workflow_summary_vertical.png)
+
+
+## Author creates Milestone
+
+export const assignAppCode = `library(ghqc)
+ghqc_assign_app()`;
+export const console = 'console';
+
+
+<Steps>
+
+1. The Author pushes final changes to the set of files for QC review
+
+2. The Author runs the Assign shiny app to:
+    - notify the QCer that files assigned to her are ready for review
+    - publish each QC file's corresponding Issue to GitHub, each with a QC checklist and metadata for traceability
+
+    <Code code={assignAppCode} lang="r" title={console} />
+
+3. The Author edits each Issue to revise the QC checklist and provide any necessary context
+
+
+</Steps>
+
+### Example
+
+Here is an example GitHub Milestone created by `ghqc_assign_app()`:\
+It has one ghqc Issue, named for the relative path of its corresponding file.
+
+![milestone_example](/ghqc-docs/milestone.png)
+
+<Aside>
+To navigate to this page in the remote project repository, click the "Issues" tab, then click on the "Milestones" banner.
+</Aside>
+
+Here is the Issue within the Milestone:
+
+![issue_example](/ghqc-docs/issue.png)
+
+### Demo 
+
+<Code code={assignAppCode} lang="r" title={console} />
+
+<video controls width = "700">
+    <source src="/ghqc-docs/assign_demo.mp4" type="video/mp4" />
+</video>
+
+## QCer configures repo and reviews
+
+export const statusAppCode = `library(ghqc)
+ghqc_status_app()`;
+
+<Steps>
+
+1. The QCer clones the repository.
+
+2. The QCer confirms that their repository is configured for QC with the Status shiny app.
+
+    <Code code={statusAppCode} lang="r" title={console} />
+
+    <video controls width = "700">
+        <source src="/ghqc-docs/qcer_config.mp4" type="video/mp4" />
+    </video>
+
+    The QCer may have to switch branches or pull to get the most the most recent version of the QC file. 
+
+    When the Git Status is "Up to date", then the QCer can confirm she's reviewing the correct version of the script.
+
+3. The QCer reviews the QC file.
+    
+</Steps>
+
+
+## QCer gives feedback
+
+QC review workflows vary between organizations. QCer protocol can range from:
+
+- Providing feedback while leaving code unchanged
+- Commenting in-line feedback within the code
+- Directly revising code
+
+### Providing feedback while leaving code unchanged
+
+#### Example
+
+QC feedback can be provided by commenting directly in a QC file's Issue thread.
+
+<Aside>
+With `ghqc_status_app()` open, the QCer can navigate to the Issue thread quickly.
+
+![qc_feedback2](/ghqc-docs/issue_thread_link.png)
+</Aside>
+
+![qc_feedback3](/ghqc-docs/qc_feedback_general.png)
+
+The QCer can comment on one or more lines of code by copying a permalink from the file contents page in the metadata section.
+
+![qc_feedback5](/ghqc-docs/qc_feedback_inline.png)
+
+#### Demo
+<video controls width = "700">
+    <source src="/ghqc-docs/qc_feedback4.mp4" type="video/mp4" />
+</video>
+
+<Aside>
+Tip to copy multiple lines: after selecting the first line, hold shift when selecting the last line, then click the three dots to copy the permalink.
+</Aside>
+
+### Commenting in-line feedback within the code
+#### Example
+
+<Steps>
+
+1. The QCer pushes in-line code comments directly to the Author's branch.
+
+2. (Optional) The QCer posts a QC Notification for the Author.
+
+    ![qc_feedback6](/ghqc-docs/qc_feedback_code.png)
+
+ 
+</Steps>
+
+#### Demo
+
+<Code code={statusAppCode} lang="r" title={console} />
+
+<video controls width = "700">
+    <source src="/ghqc-docs/qc_feedback_demo.mp4" type="video/mp4" />
+</video>
+
+## Author responds
+
+<Steps>
+
+1. If the QCer left in-line code comments, the Author pulls.
+
+2. The Author views QC feedback and follows up if necessary.
+
+3. If file changes are necessary, the Author pushes to the remote repo.
+
+4. (Optional) The Author posts a QC Notification for the QCer.
+
+</Steps>
+
+### Example
+
+![resolve1](/ghqc-docs/author_responds.png)
+
+The `current commit` in the metadata section gives the commit with the most up-to-date version of the file.
+
+
+
+### Demo
+
+<Code code={statusAppCode} lang="r" title={console} />
+
+<video controls width = "700">
+    <source src="/ghqc-docs/author_responds.mp4" type="video/mp4" />
+</video>
+
+
+## QCer approves
+
+<Steps>
+
+1. The QCer confirms that no further feedback or file changes are pending.
+
+2. The QCer checks off each item in the QC checklist on the QC file's Github Issue.
+
+3. The QCer ensures that no in-line code comments are lingering and that the file state is up-to-date with the most recent version from the author.
+
+4. The QCer approves with `ghqc_status_app()`
+
+</Steps>
+
+### Example
+
+![approve1](/ghqc-docs/qcer_approves.png)
+
+
+### Demo
+<Code code={statusAppCode} lang="r" title={console} />
+
+<video controls width = "700">
+    <source src="/ghqc-docs/qcer_approves.mp4" type="video/mp4" />
+</video>
+
+
+## Author generates QC Record
+
+The QC Record is a pdf with the QC history scraped from GitHub for each Issue created with `ghqc_assign_app()`. 
+
+It also provides summary tables for an overview of the QC process.
+
+<Steps>
+
+1. The Author closes all relevant Milestones to mark them as completed.
+
+2. The Author runs `ghqc_status_app()` to review the QC status of each Issue in the set of Milestones to ensure completion.
+
+3. The Author generates the QC record with `ghqc_record_app()`.
+
+</Steps>
+
+
+### Example
+
+The QC Record begins with a Milestone Summary table.
+
+Each Milestone section contains an Issue Summary table with subsections for each Issue.
+
+![record1](/ghqc-docs/record1.png)
+
+![record2](/ghqc-docs/record2.png)
+
+![record3](/ghqc-docs/record3.png)
+
+### Demo
+
+export const recordAppCode = `library(ghqc)
+ghqc_record_app()`;
+
+<Code code={recordAppCode} lang="r" title={console} />
+
+<video controls width = "700">
+    <source src="/ghqc-docs/record1.mp4" type="video/mp4" />
+</video>
+
+
