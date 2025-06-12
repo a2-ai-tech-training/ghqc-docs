@@ -1,23 +1,11 @@
 ---
-title: Workflow Overview
+title: Workflow example
 description: summary
 pagefind: true
 ---
 
 import { Card, CardGrid, Aside, Code, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
-
-
-## GitHub Issues and Milestones
-
-In the ghqc workflow:
-- An Issue is created for each project file selected for QC
-    - Each Issue is associated with a QC checklist and an assigned QCer
-- A set of Issues is organized into a Milestone
-    - A Milestone may correspond to a deliverable or a phase of work
-
-
-![assign_diagram](/ghqc-docs/assign_diagram.png)
 
 ## Suggested Workflow 
 
@@ -33,7 +21,7 @@ export const console = 'console';
 
 <Steps>
 
-1. The Author pushes final changes to the set of files for QC review
+1. The Author pushes final changes to the set of files for QC review.
 
 2. The Author runs the Assign shiny app to:
     - notify the QCer that files assigned to her are ready for review
@@ -41,25 +29,22 @@ export const console = 'console';
 
     <Code code={assignAppCode} lang="r" title={console} />
 
-3. The Author edits each Issue to revise the QC checklist and provide any necessary context
+3. The Author edits each Issue to revise the QC checklist, insert information into placeholders, and provide necessary context for the QCer.
+   ![edit_issue](/ghqc-docs/edit_issue.png)
 
 
 </Steps>
 
-### Example
+### Example 
 
-Here is an example GitHub Milestone created by `ghqc_assign_app()`:\
+Here is an example GitHub Milestone created by the Assign app:
 It has one ghqc Issue, named for the relative path of its corresponding file.
 
-![milestone_example](/ghqc-docs/milestone.png)
+![assign_diagram](/ghqc-docs/milestone_example2.png)
 
-<Aside>
-To navigate to this page in the remote project repository, click the "Issues" tab, then click on the "Milestones" banner.
-</Aside>
+Here is the Issue within this Milestone:
 
-Here is the Issue within the Milestone:
-
-![issue_example](/ghqc-docs/issue.png)
+![assign_diagram](/ghqc-docs/issue_example2.png)
 
 ### Demo 
 
@@ -76,7 +61,7 @@ ghqc_status_app()`;
 
 <Steps>
 
-1. The QCer clones the repository.
+1. The QCer clones the repository if necessary.
 
 2. The QCer confirms that their repository is configured for QC with the Status shiny app.
 
@@ -88,7 +73,7 @@ ghqc_status_app()`;
 
     The QCer may have to switch branches or pull to get the most the most recent version of the QC file. 
 
-    When the Git Status is "Up to date", then the QCer can confirm she's reviewing the correct version of the script.
+    She can confirm she's reviewing the correct QC file version in her local repo by verifying its "Up to date" Git Status in the Status app.
 
 3. The QCer reviews the QC file.
     
