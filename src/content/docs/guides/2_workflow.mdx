@@ -7,10 +7,45 @@ pagefind: true
 import { Card, CardGrid, Aside, Code, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 
-## Suggested Workflow 
+## Workflow diagram
 
-![workflow_summary](/ghqc-docs/workflow_summary_vertical.png)
+![workflow_summary](/ghqc-docs/workflow_summary.png)
 
+
+## Posted QC commit timeline
+
+The Author always catalyzes QC with the **inital qc commit**. This "starting line" for the QCer is posted to the Issue when it's initialized via the "Assign QC file(s)" button in the Assign app.
+
+The QCer gets the "last word" with the **approved QC commit** posted via the "Approve" button in the Status app.
+
+Commits between these two endpoints are *not* manditory. 
+
+- The QCer doesn't have to commit in-line code comments - comments can be conveyed in other ways
+- Likewise, the Author doesn't have to post QC notifiications - script updates can be conveyed in other ways
+
+The diagram below outlines the ideal posted QC commit timeline pattern for ghqc Issues.
+
+![timeline](/ghqc-docs/posted_qc_commit_timeline.png)
+
+<Aside type="tip" title="The benefits of posting QC commits">
+  - Traceable QC history
+  - Easy notifications between collaborators
+  - Status tracking to ensure collaborators are on the same page
+  - Protection from yourself 
+      - The Status app outputs warnings for cases such as QC file changes after approval
+      - The "QC Approved" comment includes a summary between the inital and approved QC commits to "sanity check" final QC file states
+</Aside>
+
+### Full Issue thread example
+
+
+<div style="width: 100%; overflow-x: auto;">
+  <img
+    src="/ghqc-docs/full_issue_new.png"
+    style="max-width: 100%; height: auto; display: block; margin: 0 auto;"
+    alt="Full Issue Screenshot"
+  />
+</div>
 
 ## Author creates Milestone
 
@@ -118,6 +153,13 @@ Tip to copy multiple lines: after selecting the first line, hold shift when sele
 ### Commenting in-line feedback within the code
 #### Example
 
+export const newlineCode = `# QC: Change the value of this seed
+seed <- 12345`;
+
+export const noNewlineCode = `seed <- 12345 # QC: Change the value of this seed`;
+
+
+
 <Steps>
 
 1. The QCer pushes in-line code comments directly to the Author's branch.
@@ -126,8 +168,20 @@ Tip to copy multiple lines: after selecting the first line, hold shift when sele
 
     ![qc_feedback6](/ghqc-docs/qc_feedback_code.png)
 
+    <Aside>
+    Make a **newline** for QC comments to avoid merge conflicts with the Author.
+
+    Like this:
+    <Code code={newlineCode} lang="r"/>
+    Instead of this:
+    <Code code={noNewlineCode} lang="r"/>
+
+    </Aside>
+
  
 </Steps>
+
+
 
 #### Demo
 
@@ -145,7 +199,7 @@ Tip to copy multiple lines: after selecting the first line, hold shift when sele
 
 2. The Author views QC feedback and follows up if necessary.
 
-3. If file changes are necessary, the Author pushes to the remote repo.
+3. If file changes are necessary, the Author pushes them to the remote repo.
 
 4. (Optional) The Author posts a QC Notification for the QCer.
 
@@ -176,7 +230,7 @@ The `current commit` in the metadata section gives the commit with the most up-t
 
 2. The QCer checks off each item in the QC checklist on the QC file's Github Issue.
 
-3. The QCer ensures that no in-line code comments are lingering and that the file state is up-to-date with the most recent version from the author.
+3. The QCer ensures that no in-line code comments are lingering and that the file state is up-to-date with the most recent version from the Author.
 
 4. The QCer approves with `ghqc_status_app()`
 
@@ -205,9 +259,20 @@ It also provides summary tables for an overview of the QC process.
 
 1. The Author closes all relevant Milestones to mark them as completed.
 
-2. The Author runs `ghqc_status_app()` to review the QC status of each Issue in the set of Milestones to ensure completion.
+    ![close](/ghqc-docs/close_milestone.png)
 
-3. The Author generates the QC record with `ghqc_record_app()`.
+2. The Author runs `ghqc_status_app()` to double-check the status of each Issue in the set of Milestones to ensure completion.
+
+    ![approved](/ghqc-docs/approved_file.png)
+    The author verifies that QC is complete when the QC Status is <span style="color: #27770a;">Approved</span> and the Git Status is <span style="color: #27770a;">Up to date</span>.
+    
+
+3. The Author generates the QC record with `ghqc_record_app()` (demo below).
+
+4. The Author merges and deletes his branch.
+    <video controls width = "700">
+        <source src="/ghqc-docs/merge_and_delete.mp4" type="video/mp4" />
+    </video>
 
 </Steps>
 
@@ -235,5 +300,4 @@ ghqc_record_app()`;
 <video controls width = "700">
     <source src="/ghqc-docs/record_demo.mp4" type="video/mp4" />
 </video>
-
 
