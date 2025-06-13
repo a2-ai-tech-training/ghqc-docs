@@ -1,0 +1,48 @@
+---
+title: Introduction to ghqc
+description: summary
+pagefind: true
+---
+
+import { Card, CardGrid, Aside, Code, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+
+## GitHub Issues and Milestones
+
+**Issues** are used to track individual tasks, enhancements, or other work items within a GitHub repository.\
+Issues typically contain a title, body, comments, and assignee(s).
+
+**Milestones** group related Issues under a common goal or timeline, such as a project phase. 
+
+*`ghqc` is an R package that co-opts Issues and Milestones for QC.*
+
+The QC script Author begins the QC workflow by running the Assign app, which is a Shiny app that allows him to select a set of QC files in his project directory.\
+For each QC file, the author selects a checklist template from his organization and optionally a QCer.
+
+The app creates a GitHub Issue for each selected QC file and organizes them into a Milestone.\
+Each Issue body also includes a metadata section with configuring information for the QCer and tooling.
+
+![assign_diagram](/ghqc-docs/assign_diagram.png)
+
+## Example 
+
+Here is an example GitHub Milestone created by the Assign app:
+It has one ghqc Issue, named for the relative path of its corresponding file.
+
+![assign_diagram](/ghqc-docs/milestone_example2.png)
+
+Here is the Issue within this Milestone:
+
+![assign_diagram](/ghqc-docs/issue_example2.png)
+
+## QC review
+
+The QCer is notified of QC assignment in GitHub or recieves the Issue link and assigns herself.
+
+To review, the QCer:
+- Clones the repo/pulls the inital qc commit given by the metadata section
+- Reviews the file 
+- Checks off checklist items in the Issue body
+- Posts review comments in the Issue thread for discourse with the Author
+- Approves the Issue when QC is complete
