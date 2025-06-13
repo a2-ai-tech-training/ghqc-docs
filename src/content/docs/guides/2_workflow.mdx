@@ -94,11 +94,17 @@ Here is the Issue within this Milestone:
 export const statusAppCode = `library(ghqc)
 ghqc_status_app()`;
 
+
+The QCer:
 <Steps>
 
-1. The QCer clones the repository if necessary.
+1. Assigns herself to the Issue if she's not already assigned
 
-2. The QCer confirms that their repository is configured for QC with the Status shiny app.
+   ![qcer_assigned](/ghqc-docs/qcer_assigned.png)
+
+2. Clones the repository if necessary
+
+3. Confirms that her local repo is configured for QC with the Status app
 
     <Code code={statusAppCode} lang="r" title={console} />
 
@@ -106,11 +112,14 @@ ghqc_status_app()`;
         <source src="/ghqc-docs/qcer_config.mp4" type="video/mp4" />
     </video>
 
-    The QCer may have to switch branches or pull to get the most the most recent version of the QC file. 
+    She may have to switch branches or pull to get the most the most recent version of the QC file. 
 
-    She can confirm she's reviewing the correct QC file version in her local repo by verifying its "Up to date" Git Status in the Status app.
+    She can confirm she's reviewing the correct QC file version in her local repo by verifying its Git Status is <span style="color: #27770a;">Up to date</span> in the Status app.
 
-3. The QCer reviews the QC file.
+4. Reviews the QC file
+
+5. Checks off items in the Issue body's QC Checklist
+   ![check_off](/ghqc-docs/check_off.png)
     
 </Steps>
 
