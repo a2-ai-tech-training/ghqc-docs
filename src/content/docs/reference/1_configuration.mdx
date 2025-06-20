@@ -1,0 +1,48 @@
+---
+title: Configuration
+description: A guide on how to install `ghqc` with some explanation as to the motivation
+pagefind: true
+---
+import { Tabs, TabItem, Card, CardGrid, Aside, Code, Badge } from '@astrojs/starlight/components';
+
+The ghqc ecosystem is split into 4 components to give the user control over the QC process
+while ensuring additional project package dependencies are minimal.
+
+<Card title="The QCed project" icon="github">
+    Your GitHub repository, containing the files to be QCed.
+</Card>
+<Card title="ghqc" icon="add-document" color = "red">
+    `ghqc` is a low dependency burden package designed to be installed alongside any project packages.
+    It aids with the installation process and launches the Shiny applications as background jobs.
+</Card>
+<Card title="ghqc.app" icon="add-document">
+    `ghqc.app` is a high dependency burden package "back-end" to the Shiny applications.
+    To ensure `ghqc.app` dependencies do not interfere with project work, ghqc.app and its dependencies are installed in an isolated directory outside the QCed project.
+</Card>
+<Card title="Custom configuration repository " icon="information">
+    Custom options for app inputs and outputs, including an organization's selectable QC checklists, are configured by an organization administrator in a custom configuration repository.
+
+    `ghqc` users clone this repository locally to an isolated directory outside the QCed project.
+    
+    Learn more <a href="https://github.com/A2-ai/ghqc.example_config_repo?tab=readme-ov-file#">here</a>
+</Card>
+
+## Install ghqc
+
+`ghqc` can be installed with `pak`:
+
+<Code code={`
+# install.packages("pak")
+pak::pkg_install("a2-ai/ghqc")
+`} lang="r" title="console" />
+
+## Setup
+
+After installation, users can run `ghqc::setup_ghqc()`, an interactive function to step through first-time setup.
+
+<Code code={`
+library(ghqc)
+ghqc_setup()
+`} lang="r" title="console" />
+
+
