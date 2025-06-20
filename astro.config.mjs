@@ -47,13 +47,13 @@ export default defineConfig({
 			},
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'User Guide',
 					autogenerate: { directory: 'guides' },
-				}//,
-				// {
-				// 	label: 'Reference',
-				// 	autogenerate: { directory: 'reference' },
-				// },
+				},
+				{
+					label: 'Admin Guide',
+					autogenerate: { directory: 'reference' },
+				}
 			],
 		}),
 	],

@@ -1,5 +1,5 @@
 ---
-title: Workflow example
+title: Workflow demos and examples
 description: summary
 pagefind: true
 ---
@@ -7,45 +7,10 @@ pagefind: true
 import { Card, CardGrid, Aside, Code, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 
-## Workflow diagram
+See below for examples of each step of the following workflow pattern.
 
 ![workflow_summary](/ghqc-docs/workflow_summary.png)
 
-
-## Posted QC commit timeline
-
-The Author always catalyzes QC with the **inital qc commit**. This "starting line" for the QCer is posted to the Issue when it's initialized via the "Assign QC file(s)" button in the Assign app.
-
-The QCer gets the "last word" with the **approved QC commit** posted via the "Approve" button in the Status app.
-
-Commits between these two endpoints are *not* manditory. 
-
-- The QCer doesn't have to commit in-line code comments - comments can be conveyed in other ways
-- Likewise, the Author doesn't have to post QC notifiications - script updates can be conveyed in other ways
-
-The diagram below outlines the ideal posted QC commit timeline pattern for ghqc Issues.
-
-![timeline](/ghqc-docs/posted_qc_commit_timeline.png)
-
-<Aside type="tip" title="The benefits of posting QC commits">
-  - Traceable QC history
-  - Easy notifications between collaborators
-  - Status tracking to ensure collaborators are on the same page
-  - Protection from yourself 
-      - The Status app outputs warnings for cases such as QC file changes after approval
-      - The "QC Approved" comment includes a summary between the inital and approved QC commits to "sanity check" final QC file states
-</Aside>
-
-### Full Issue thread example
-
-
-<div style="width: 100%; overflow-x: auto;">
-  <img
-    src="/ghqc-docs/full_issue_new.png"
-    style="max-width: 100%; height: auto; display: block; margin: 0 auto;"
-    alt="Full Issue Screenshot"
-  />
-</div>
 
 ## Author creates Milestone
 
@@ -138,7 +103,7 @@ QC review workflows vary between organizations. QCer protocol can range from:
 
 QC feedback can be provided by commenting directly in a QC file's Issue thread.
 
-<Aside>
+<Aside title="Tip">
 With `ghqc_status_app()` open, the QCer can navigate to the Issue thread quickly.
 
 ![qc_feedback2](/ghqc-docs/issue_thread_link.png)
@@ -155,8 +120,8 @@ The QCer can comment on one or more lines of code by copying a permalink from th
     <source src="/ghqc-docs/qc_feedback4.mp4" type="video/mp4" />
 </video>
 
-<Aside>
-Tip to copy multiple lines: after selecting the first line, hold shift when selecting the last line, then click the three dots to copy the permalink.
+<Aside title="Tip">
+To copy multiple lines: after selecting the first line, hold shift when selecting the last line, then click the three dots to copy the permalink.
 </Aside>
 
 ### Commenting in-line feedback within the code
@@ -309,4 +274,3 @@ ghqc_record_app()`;
 <video controls width = "700">
     <source src="/ghqc-docs/record_demo.mp4" type="video/mp4" />
 </video>
-
