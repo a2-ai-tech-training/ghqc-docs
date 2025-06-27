@@ -1,6 +1,5 @@
 ---
-title: Configuration
-description: A guide on how to install `ghqc` with some explanation as to the motivation
+title: Ecosystem architecture
 pagefind: true
 ---
 import { Tabs, TabItem, Card, CardGrid, Aside, Code, Badge } from '@astrojs/starlight/components';
@@ -27,22 +26,4 @@ while ensuring additional project package dependencies are minimal.
     Learn more <a href="https://github.com/A2-ai/ghqc.example_config_repo?tab=readme-ov-file#">here</a>
 </Card>
 
-## Install ghqc
-
-`ghqc` can be installed with `pak`:
-
-<Code code={`
-# install.packages("pak")
-pak::pkg_install("a2-ai/ghqc")
-`} lang="r" title="console" />
-
-## Setup
-
-After installation, users can run `ghqc::setup_ghqc()`, an interactive function to step through first-time setup.
-
-<Code code={`
-library(ghqc)
-ghqc_setup()
-`} lang="r" title="console" />
-
-
+![](/ghqc-docs/ecosystem_architecture.png)
