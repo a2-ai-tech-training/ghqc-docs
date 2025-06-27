@@ -17,27 +17,26 @@ See an example configuration repository here: [ghqc.example_config_repo](https:/
 
 The configuration repository can be named anything. The naming convention is ghqc.org, where org is the organization name.
 
-The configuration repository https URL is inputted to ghqc via the GHQC_CONFIG_REPO environment variable.\
+The configuration repository https URL is inputted to ghqc via the `GHQC_CONFIG_REPO` environment variable.\
 To set this variable, add it to your .Renviron:
-```
-GHQC_CONFIG_REPO=https://github.com/A2-ai/ghqc.example_info_repo.git
-```
+<Code code="GHQC_CONFIG_REPO=https://github.com/A2-ai/ghqc.example_info_repo.git" title=".Renviron" />
 
+or input the `GHQC_CONFIG_REPO` variable during [setup](/ghqc-docs/guides/2_installation/#install-and-setup-the-ecosystem).
 
-## Repo Structure
+## Repository Structure
 
-The the config repo must have a folder named "checklists" in the root.
+The repository must have a folder named "checklists" in the root.\
 The logo.png and options.yaml are optional.
 
 If the logo.png or options.yaml are included, they must have those names exactly to be recognized by ghqc.
 
 ## Checklists
 
-Checklists should be located in the checklists folder - ghqc accepts both `.txt` and specific `.yaml` formats.
+Checklists are stored in the "checklists" folder; ghqc accepts both `.txt` and specific `.yaml` formats (outlined below).
 
 ### txt checklists
 
-`.txt` checklists are the most flexible - any contents in .txt files are accepted by ghqc.
+txt checklists are the most flexible - any contents in .txt files are accepted by ghqc.
 
 The template formats best as GitHub-flavored markdown, with headers beginning at header 2 (##).
 
@@ -54,12 +53,18 @@ The checklist title and prepended checklist note (if included) will prepend all 
 <checklist template in GFM>
 ```
 
-The easiest way to create .txt checklist templates is to do so in a mock GitHub Issue, where its rendering can be previewed immediately 
-before being pasting into a its corresponding .txt file.
+The easiest way to create .txt checklist templates is to do so in a mock GitHub Issue, where its rendered output can be previewed immediately 
+before pasting into a its corresponding .txt file.
 
 <video controls width = "700">
     <source src="/ghqc-docs/txt_checklist.mp4" type="video/mp4" />
 </video>
+
+<Aside>
+Feel free to use GitHub-flavored markdown features such as tables, inline code, and URLS.
+
+Or keep things simple with tasklists, in which each item is prepended with `- [ ]`.
+</Aside>
 
 
 
@@ -187,29 +192,14 @@ Output rendered in `ghqc_assign_app()`:
 <img width="589" alt="Screenshot 2025-01-23 at 4 58 58 PM" src="https://github.com/user-attachments/assets/dd769de0-e2f4-443e-8437-e7189d17a65f" />
 
 
-## Repository and checklist validation in ghqc
+## Repository and checklist validation
 
-ghqc will validate the structure of the repository and checklists when cloned via `ghqc_setup()`.
-
-If the repository isn't formatted according to ghqc convention (the only requirement is the checklists directory):
-
-<img width="690" alt="Screenshot 2025-01-24 at 9 39 08 AM" src="https://github.com/user-attachments/assets/58eeb815-e0ec-47ca-86f0-ff749d10e772" />
-
-If this directory isn't present, an error will occur when running `ghqc_assign_app()`:
-
-<img width="699" alt="Screenshot 2025-01-24 at 9 40 16 AM" src="https://github.com/user-attachments/assets/b06c2b50-eea9-447b-b388-d19fec211daf" />
-
-
-
-If checklists aren't formatted according to ghqc convention:
-
-<img width="763" alt="Screenshot 2025-01-24 at 9 32 21 AM" src="https://github.com/user-attachments/assets/40045027-f2ef-47f5-8847-485829785f21" />
-
-
-## Validate structure
-To check how ghqc parses the repository, run:
+To validate that ghqc can parse the repository, run:
 ```r
-ghqc::check_ghqc_configuration()
+library(ghqc)
+
+setup_ghqc_renviron(GHQC_CONFIG_REPO = <repository https URL>)
+check_ghqc_configuration()
 ```
 Alternatively, input the https URL when running `ghqc::ghqc_setup()`:
 
@@ -244,3 +234,16 @@ Path to download the configuration information repository (~/.local/share/ghqc/g
 ✔ advanced_checklist.yaml
 ✔ simple_checklist.yaml
 ```
+
+
+ghqc will indicate if the repository isn't formatted according to ghqc convention (the only requirement is the checklists directory):
+
+<img width="690" alt="Screenshot 2025-01-24 at 9 39 08 AM" src="https://github.com/user-attachments/assets/58eeb815-e0ec-47ca-86f0-ff749d10e772" />
+
+If this directory isn't present, an error will occur when running `ghqc_assign_app()`:
+
+<img width="699" alt="Screenshot 2025-01-24 at 9 40 16 AM" src="https://github.com/user-attachments/assets/b06c2b50-eea9-447b-b388-d19fec211daf" />
+
+ghqc will also indicate if checklists aren't formatted according to its convention:
+
+<img width="763" alt="Screenshot 2025-01-24 at 9 32 21 AM" src="https://github.com/user-attachments/assets/40045027-f2ef-47f5-8847-485829785f21" />
