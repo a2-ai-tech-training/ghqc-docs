@@ -8,6 +8,28 @@ import { Card, CardGrid, Aside, Code, Steps } from '@astrojs/starlight/component
 import { Image } from 'astro:assets';
 
 
+
+
+<Aside type='tip' title="ghqc">
+
+ghqc is an R package that facilitates a 
+<u>G</u>it<u>H</u>ub-centric 
+<u>Q</u><u>C</u> workflow via Shiny apps for improved configuration, workflow, and traceability.
+
+##### Configuration
+
+ghqc leverages Git's version control to help collaborators stay synchronized with the evolution of a QC.
+
+##### Workflow
+
+ghqc streamlines QC initialization, discussion, updates, and approval through structured automation.
+
+##### Traceability
+
+ghqc generates a static, auditable record of QC history for long-term archival.
+
+</Aside>
+
 ## GitHub Issues and Milestones
 
 **Issues** are used to track individual tasks, enhancements, or other work items within a GitHub repository.\
@@ -15,7 +37,9 @@ Issues typically contain a title, body, comments, and assignee(s).
 
 **Milestones** group related Issues under a common goal or timeline, such as a project phase. 
 
-*`ghqc` is an R package that co-opts Issues and Milestones for QC.*
+`ghqc` co-opts GitHub Issues and Milestones as the nexus for QC processes.
+
+## Getting started
 
 The QC script Author begins the QC workflow by running the Assign app, which is a Shiny app that allows him to select a set of QC files in his project directory.\
 For each QC file, the author selects a checklist template from his organization and optionally a QCer.
