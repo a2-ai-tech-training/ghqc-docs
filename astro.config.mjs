@@ -48,11 +48,11 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'User Guide',
-					autogenerate: { directory: 'guides' },
+					autogenerate: { directory: '1_user_guide' },
 				},
 				{
 					label: 'Admin Guide',
-					autogenerate: { directory: 'reference' },
+					autogenerate: { directory: '2_admin_guide' },
 				}
 			],
 		}),

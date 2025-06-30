@@ -1,14 +1,14 @@
 ---
 title: Welcome to ghqc
-description: A new way to perform quality control through Shiny apps and GitHub
+description: A new way to perform quality control with improved configuration, workflow, and traceability
 template: splash
 hero:
-  tagline: A new way to perform quality control through Shiny apps and GitHub
+  tagline: A new way to perform quality control with improved configuration, workflow, and traceability
   image:
     file: /src/assets/ghqc_hex.png
   actions:
     - text: Introduction
-      link: /ghqc-docs/guides/1_intro
+      link: /ghqc-docs/1_user_guide/1_intro
       icon: right-arrow
     - text: Visit the ghqc repo
       link: https://github.com/A2-ai/ghqc
@@ -20,17 +20,17 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 
 
-<CardGrid>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+<CardGrid stagger>
+	<Card title="Quick Setup" icon="download">
+		[Install and download the ghqc ecosystem with an example configuration](/ghqc-docs/1_user_guide/2_installation/#quick-setup)
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+	<Card title="Workflow Overview" icon="seti:R">
+	[Check out an example ghqc workflow](/ghqc-docs/1_user_guide/workflow/3_workflow/)
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
+	<Card title="Organization Setup" icon="github">
+		[Install and download the ghqc ecosystem with your organization's configuration](/ghqc-docs/1_user_guide/2_installation/#organization-setup)
 	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="Demos and Examples" icon="seti:video">
+		[Watch demos of each step of the ghqc workflow](/ghqc-docs/1_user_guide/workflow/4_examples_and_demos/)
 	</Card>
 </CardGrid>
