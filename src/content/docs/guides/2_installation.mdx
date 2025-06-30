@@ -7,14 +7,16 @@ pagefind: true
 import { Image } from 'astro:assets';
 import { Tabs, TabItem, Card, CardGrid, Aside, Code, Badge, Steps, Icon } from '@astrojs/starlight/components';
 
+![](/ghqc-docs/installation_steps.png)
+
 ## Quick setup
 
 To try out ghqc **without** your organization's custom configuration options, run the following 
-commands to install the ecosystem and clone an example configuration repository.
+commands to install the ecosystem and clone an <a href="https://github.com/A2-ai/ghqc.example_config_repo?tab=readme-ov-file#" target="_blank" rel="noopener noreferrer">example custom configuration repository<span style={{ display: 'inline-block', verticalAlign: 'middle' }}><Icon name="external" /></span></a>.
 
 <Steps>
 
-1. Set options to a CRAN-like repository with the ghqc ecosystem
+1. Set options to a CRAN-like repository with the ghqc ecosystem (this allows the setup function to install ghqc.app, an auxiliary helper package)
     ```r
     options("repos" = c(
         "ghqc-eco" = "https://prism.dev.a2-ai.cloud/rpkgs/ghqc-eco/v2", 
@@ -24,7 +26,7 @@ commands to install the ecosystem and clone an example configuration repository.
     ```r
     install.packages("ghqc", dependencies = TRUE)
     ```
-3. Install auxiliary dependencies and configuration
+3. Clone the example custom configuration repository and install ghqc.app dependencies and ghqc.app with:
     ```r
     ghqc::ghqc_example_setup()
     ```
@@ -34,8 +36,6 @@ Now you are set up to [run the apps](#run-the-apps).
 
 
 ## Organization setup
-
-![](/ghqc-docs/install_diagram.png)
 
 ### Install ghqc
 
@@ -56,19 +56,9 @@ export const dependenciesCode = `{name = "ghqc", install_suggestions = true}`;
 ![](/ghqc-docs/rv.png)
 
 <Aside>
-  {
-    <>
-      For more information on <code>rv</code>, check out the {' '}
-      <a
-        href="https://github.com/A2-ai/rv?tab=readme-ov-file#rv"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', whiteSpace: 'nowrap' }}
-      >
-        GitHub repo <Icon name="external" />
-      </a>.
-    </>
-  }
+
+For more information on `rv`, check out the <a href="https://github.com/A2-ai/rv?tab=readme-ov-file#rv" target="_blank" rel="noopener noreferrer">GitHub repo<span style={{ display: 'inline-block', verticalAlign: 'middle' }}><Icon name="external" /></span></a>.
+
 </Aside>
 
 
