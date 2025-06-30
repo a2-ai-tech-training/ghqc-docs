@@ -9,7 +9,7 @@ import { Tabs, TabItem, Card, CardGrid, Aside, Code, Badge, Steps, Icon } from '
 
 ## Quick setup
 
-To try out ghqc without your organization's custom configuration options, run the following 
+To try out ghqc **without** your organization's custom configuration options, run the following 
 commands to install the ecosystem and clone an example configuration repository.
 
 <Steps>
@@ -24,15 +24,18 @@ commands to install the ecosystem and clone an example configuration repository.
     ```r
     install.packages("ghqc", dependencies = TRUE)
     ```
-3. Install auxillary dependencies and configuration
+3. Install auxiliary dependencies and configuration
     ```r
     ghqc::ghqc_example_setup()
     ```
-4. [Run the apps](#run-the-apps)
 </Steps>
+
+Now you are set up to [run the apps](#run-the-apps).
 
 
 ## Organization setup
+
+![](/ghqc-docs/install_diagram.png)
 
 ### Install ghqc
 
@@ -90,7 +93,7 @@ export const dependenciesCode = `{name = "ghqc", install_suggestions = true}`;
 1. Run the interactive setup script.
     ```r
     library(ghqc)
-    setup_ghqc()
+    ghqc_setup()
     ```
 2. Add the configuration repository to your `.Renviron`.
 
@@ -193,7 +196,7 @@ export const dependenciesCode = `{name = "ghqc", install_suggestions = true}`;
         </TabItem>
     </Tabs>
 
-    After a successful download, the structure of the repository is verified for its compatiblility with the ghqc ecosystem.
+    After a successful download, the structure of the repository is verified for its compatibility with the ghqc ecosystem.
     This includes structural validation of each yaml checklist.
     ```ansi
     [32m✔ [35mlogo.png[0m successfully found
@@ -286,14 +289,14 @@ export const dependenciesCode = `{name = "ghqc", install_suggestions = true}`;
             [35mPath to previously installed package library from which to link:
             ```
 
-            You will then be prompted with where to symlink the dependencies to. To set the destintation as the default directory, which is highly recommended, hit `ENTER`.
+            You will then be prompted with where to symlink the dependencies to. To set the destination as the default directory, which is highly recommended, hit `ENTER`.
             If a different location is required, you are able to enter the file path.
 
             ```ansi
             [35mPath to link the ghqc.app dependencies (~/.local/share/ghqc/rpkgs)
             ```
 
-            In order to prevent errors, the current content in the destintation is deleted and then the symlink occurs:
+            In order to prevent errors, the current content in the destination is deleted and then the symlink occurs:
             ```ansi
             Linking ghqc.app dependency packages...
             Removing all packages in ~/.local/share/ghqc/rpkgs...
@@ -311,28 +314,28 @@ export const dependenciesCode = `{name = "ghqc", install_suggestions = true}`;
 
 5. Install ghqc.app
 
-    At the end of the ghqc.app dependency installation, the following note will print if ghqc.app is not installed in the 
+    At the end of the ghqc.app dependency installation, the following note will print if ghqc.app is not installed in the ghqc directory.
     ```ansi
     [38;5;226m![0m NOTE: ghqc.app is not installed in ~/.local/share/ghqc/rpkgs. 
     Please install before running any ghqc apps
     ```
 
-    Due to organizational requirements for package management and installation, the package orchestrating the Shiny apps (`ghqc.app`) is not installed as part of `ghqc::setup_ghqc()`.\
-    Install `ghqc.app` with the following command:
+    If it is not an available package in the user's `options("repos")`, `ghqc.app` is not installed as part of `ghqc::ghqc_setup()`.\
+    Manually install `ghqc.app` with the following command:
 
     ```ansi
     utils::install.packages([38;5;106m"ghqc.app"[0m, 
                             lib = [3;4mghqc::ghqc_libpath()[0m,
                             repos = [38;5;106m"https://prism.dev.a2-ai.cloud/rpkgs/ghqc-eco/v2"[0m)
     ```
-6. [Run the apps](#run-the-apps)
+
 
 </Steps>
 
 
 ## Run the apps
 
-To run the apps, ensure your project is open and is an initialzed git repository with a remote upstream.
+To run the apps, ensure your project is open and is an initialized git repository with a remote upstream.
 
 #### Via console
 
