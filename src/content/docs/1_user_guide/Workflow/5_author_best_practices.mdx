@@ -1,0 +1,65 @@
+---
+title: Author best practices
+description: summary
+pagefind: true
+---
+
+import { Card, CardGrid, Aside, Code, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+
+
+## Put yourself in the QCer's shoes
+
+export const assignAppCode = `library(ghqc)
+ghqc_assign_app()`;
+export const console = 'console';
+
+<Code code={assignAppCode} lang="r" title={console} />
+
+Preview the checklist in the app and cross off items as if you were the QCer.
+
+<video controls width = "700">
+    <source src="/ghqc-docs/qcers_shoes.mp4" type="video/mp4" />
+</video>
+
+Checking these items off in the app doesn't check them off in the actual rendered GitHub Issue.
+
+## Edit each Issue's checklist template
+
+Adapt checklist templates to fit the context of your QC. These templates are only a guide — your expertise is what makes them effective.
+
+![](/ghqc-docs/edit_issue2.png)
+
+![](/ghqc-docs/insert.png)
+
+<Aside>
+- Use cmd+f or ctrl+f to find placeholders in the template
+
+- Avoid editing the _Issue title_, _Metadata_, or _Relevant files_ sections to ensure the app can parse information
+</Aside>
+
+## Notify file changes to the QCer with the Status app
+
+export const statusAppCode = `library(ghqc)
+ghqc_status_app()`;
+
+<Code code={statusAppCode} lang="r" title={console} />
+
+![](/ghqc-docs/author_notify.png)
+
+<video controls width = "700">
+    <source src="/ghqc-docs/author_responds.mp4" type="video/mp4" />
+</video>
+
+## Close Milestones when completed
+
+When QC for each file in a Milestone is completed, each QC file's respective Issue should be closed via the “Approve” button in the Status app by their respective QCers. 
+
+At this point, the Author can close the Milestone to indicate completed QC with no other QC files to add to the set.
+
+![](/ghqc-docs/close_milestone.png)
+
+<Aside type='tip'>
+Closing Milestones prevents them from loading by default in `ghqc_status_app()`
+</Aside>

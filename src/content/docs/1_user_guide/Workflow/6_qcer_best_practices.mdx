@@ -1,0 +1,70 @@
+---
+title: QCer best practices
+description: summary
+pagefind: true
+---
+
+import { Card, CardGrid, Aside, Code, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+export const statusAppCode = `library(ghqc)
+ghqc_status_app()`;
+export const console = 'console';
+
+## Assign yourself to the Issue on GitHub
+
+![](/ghqc-docs/assign_yourself.png)
+
+## Configure your repository for QC
+
+<Code code={statusAppCode} lang="r" title={console} />
+
+    <video controls width = "700">
+        <source src="/ghqc-docs/qcer_config.mp4" type="video/mp4" />
+    </video>
+
+## Navigate to the Issue to leave general comments
+
+<Code code={statusAppCode} lang="r" title={console} />
+
+![qc_feedback2](/ghqc-docs/issue_thread_link.png)
+
+![qc_feedback3](/ghqc-docs/qc_feedback_general.png)
+
+## Optionally push QC comments directly to the Author's branch
+
+![qc_feedback6](/ghqc-docs/qc_feedback_code.png)
+
+export const newlineCode = `# QC: Change the value of this seed
+seed <- 12345`;
+
+export const noNewlineCode = `seed <- 12345 # QC: Change the value of this seed`;
+
+<Aside>
+    Make a **newline** for QC comments to avoid merge conflicts with the Author.
+
+    Like this:
+    <Code code={newlineCode} lang="r"/>
+    Instead of this:
+    <Code code={noNewlineCode} lang="r"/>
+
+    </Aside>
+
+<Code code={statusAppCode} lang="r" title={console} />
+
+<video controls width = "700">
+    <source src="/ghqc-docs/qc_feedback_demo.mp4" type="video/mp4" />
+</video>
+
+
+
+## Approve the Issue when no further changes are necessary!
+
+![approve1](/ghqc-docs/qcer_approves.png)
+
+
+<Code code={statusAppCode} lang="r" title={console} />
+
+<video controls width = "700">
+    <source src="/ghqc-docs/qcer_approves.mp4" type="video/mp4" />
+</video>
