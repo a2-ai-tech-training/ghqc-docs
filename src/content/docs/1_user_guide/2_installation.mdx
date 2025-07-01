@@ -19,7 +19,7 @@ commands to install the ecosystem and clone an <a href="https://github.com/A2-ai
 1. Set options to a CRAN-like repository with the ghqc ecosystem (this allows the setup function to install ghqc.app, an auxiliary helper package)
     ```r
     options("repos" = c(
-        "ghqc-eco" = "https://prism.dev.a2-ai.cloud/rpkgs/ghqc-eco/v2", 
+        "ghqc-eco" = "https://prism.dev.a2-ai.cloud/rpkgs/ghqc-eco/v3", 
         getOption("repos")))
     ```
 2. Install ghqc and its suggested dependencies
@@ -41,7 +41,7 @@ Now you are set up to [run the apps](#run-the-apps).
 
 #### With rv
 
-export const repositoriesCode = `{alias = "ghqc-eco", url = "https://prism.dev.a2-ai.cloud/rpkgs/ghqc-eco/v2"}`;
+export const repositoriesCode = `{alias = "ghqc-eco", url = "https://prism.dev.a2-ai.cloud/rpkgs/ghqc-eco/v3"}`;
 
 export const dependenciesCode = `{name = "ghqc", install_suggestions = true}`;
 
@@ -68,7 +68,7 @@ For more information on `rv`, check out the <a href="https://github.com/A2-ai/rv
 1. Set options to a CRAN-like repository with the ghqc ecosystem
     ```r
     options("repos" = c(
-        "ghqc-eco" = "https://prism.dev.a2-ai.cloud/rpkgs/ghqc-eco/v2", 
+        "ghqc-eco" = "https://prism.dev.a2-ai.cloud/rpkgs/ghqc-eco/v3", 
         getOption("repos")))
     ```
 2. Install ghqc and its suggested dependencies
@@ -316,7 +316,7 @@ For more information on `rv`, check out the <a href="https://github.com/A2-ai/rv
     ```ansi
     utils::install.packages([38;5;106m"ghqc.app"[0m, 
                             lib = [3;4mghqc::ghqc_libpath()[0m,
-                            repos = [38;5;106m"https://prism.dev.a2-ai.cloud/rpkgs/ghqc-eco/v2"[0m)
+                            repos = [38;5;106m"https://prism.dev.a2-ai.cloud/rpkgs/ghqc-eco/v3"[0m)
     ```
 
 
